@@ -4,14 +4,14 @@ using Microsoft.Xna.Framework.Input;
 
 namespace RythmGame
 {
-    public class Game1 : Game
+    public class Main : Game
     {
-        private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
-
-        public Game1()
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+        private Marker marker;
+        public Main()
         {
-            _graphics = new GraphicsDeviceManager(this);
+            graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
         }
@@ -19,13 +19,13 @@ namespace RythmGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            marker = new Marker(Content.Load<Texture2D>("marker"));
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
         }
@@ -44,7 +44,11 @@ namespace RythmGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap);
+
+            marker.Draw(spriteBatch);
+
+            spriteBatch.End();
 
             base.Draw(gameTime);
         }
