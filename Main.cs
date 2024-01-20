@@ -20,6 +20,11 @@ namespace RythmGame
         {
             // TODO: Add your initialization logic here
             marker = new Marker(Content.Load<Texture2D>("marker"));
+
+
+            graphics.PreferredBackBufferHeight = Configuration.ScreenHeight;
+            graphics.PreferredBackBufferWidth = Configuration.ScreenWidth;
+            graphics.ApplyChanges();
             base.Initialize();
         }
 
