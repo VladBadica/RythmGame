@@ -9,18 +9,37 @@ namespace RythmGame
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         private TrackBall trackBall;
+        private Map map;
 
         public Main()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+            map = new Map();
+            trackBall = new TrackBall();
+        }
+
+        protected override void Draw(GameTime gameTime)
+        {
+            GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap);
+
+            trackBall.Draw(spriteBatch);
+            map.Draw(spriteBatch);
+
+            spriteBatch.End();
+
+            base.Draw(gameTime);
         }
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-            trackBall = new TrackBall(Content.Load<Texture2D>("trackBall"));
+            AssetManager.Initialize(Content);
+            trackBall.Initialize();
+            map.Initialize();
 
             graphics.PreferredBackBufferHeight = Configuration.WindowHeight;
             graphics.PreferredBackBufferWidth = Configuration.WindowWidth;
@@ -32,31 +51,20 @@ namespace RythmGame
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
+            trackBall.LoadContent();
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            InputHandler.Update();
+            trackBall.Update(gameTime);
 
-            trackBall.Update();
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape)) 
+            {
+                Exit();
+            }
 
             base.Update(gameTime);
-        }
-
-        protected override void Draw(GameTime gameTime)
-        {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap);
-
-            trackBall.Draw(spriteBatch);
-
-            spriteBatch.End();
-
-            base.Draw(gameTime);
         }
     }
 }
