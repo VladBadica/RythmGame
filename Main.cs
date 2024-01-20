@@ -8,7 +8,8 @@ namespace RythmGame
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private Marker marker;
+        private TrackBall trackBall;
+
         public Main()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -19,12 +20,12 @@ namespace RythmGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            marker = new Marker(Content.Load<Texture2D>("marker"));
+            trackBall = new TrackBall(Content.Load<Texture2D>("trackBall"));
 
-
-            graphics.PreferredBackBufferHeight = Configuration.ScreenHeight;
-            graphics.PreferredBackBufferWidth = Configuration.ScreenWidth;
+            graphics.PreferredBackBufferHeight = Configuration.WindowHeight;
+            graphics.PreferredBackBufferWidth = Configuration.WindowWidth;
             graphics.ApplyChanges();
+
             base.Initialize();
         }
 
@@ -40,7 +41,7 @@ namespace RythmGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            trackBall.Update();
 
             base.Update(gameTime);
         }
@@ -51,7 +52,7 @@ namespace RythmGame
 
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap);
 
-            marker.Draw(spriteBatch);
+            trackBall.Draw(spriteBatch);
 
             spriteBatch.End();
 

@@ -4,9 +4,9 @@ namespace RythmGame
 {
     public class Configuration
     {
-        public static int ScreenWidth => int.Parse(ConfigurationManager.AppSettings["ScreenWidth"]);
+        public static int WindowWidth => int.Parse(ConfigurationManager.AppSettings["WindowWidth"]);
         
-        public static int ScreenHeight => int.Parse(ConfigurationManager.AppSettings["ScreenHeight"]);
+        public static int WindowHeight => int.Parse(ConfigurationManager.AppSettings["WindowHeight"]);
 
     }
 }
