@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RythmGame.Utils;
-using System;
 
 namespace RythmGame
 {
@@ -23,7 +22,7 @@ namespace RythmGame
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.HotPink);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap);
             gameEngine.Draw(spriteBatch);
@@ -36,7 +35,7 @@ namespace RythmGame
         protected override void Initialize()
         {
             AssetManager.Initialize(Content);
-            gameEngine.Initialize();
+            gameEngine.StartGame();
 
             graphics.PreferredBackBufferHeight = Configuration.WindowHeight;
             graphics.PreferredBackBufferWidth = Configuration.WindowWidth;
@@ -56,7 +55,12 @@ namespace RythmGame
             InputHandler.Update();
             gameEngine.Update(gameTime);
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape)) 
+            if (InputHandler.IsKeyPressed(Keys.R))
+            {
+                gameEngine.StartGame();
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 Exit();
             }

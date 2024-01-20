@@ -26,12 +26,27 @@ namespace RythmGame
 
         public void Initialize()
         {
-            AddStep(Configuration.WindowWidth - 288);
-            AddStep(256);
-            AddStep(Configuration.WindowWidth - 288);
-            AddStep(256);
-            AddStep(Configuration.WindowWidth - 288);
-            AddStep(256);
+            steps.Clear();
+            for(int i = 0; i < 7; i++)
+            {
+                AddStep(420);
+                AddStep(Configuration.WindowWidth - 420);
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                AddStep(460);
+                AddStep(Configuration.WindowWidth - 460);
+            }
+            for (int i = 0; i < 10; i++)
+            {
+                AddStep(440);
+                AddStep(Configuration.WindowWidth - 440);
+            }
+            for (int i = 0; i < 300; i++)
+            {
+                AddStep(450);
+                AddStep(Configuration.WindowWidth - 450);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)

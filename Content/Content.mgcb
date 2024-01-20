@@ -20,6 +20,18 @@
 /processorParam:TextureFormat=Compressed
 /build:calibri18.spritefont
 
+#begin rocketExplosionSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:rocketExplosionSound.wav
+
+#begin slimeSplash.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:slimeSplash.wav
+
 #begin stepLine.png
 /importer:TextureImporter
 /processor:TextureProcessor

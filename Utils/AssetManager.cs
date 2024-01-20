@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace RythmGame.Utils
@@ -20,6 +21,11 @@ namespace RythmGame.Utils
         public static SpriteFont GetSpriteFont(string name)
         {
             return content.Load<SpriteFont>(name);
+        }
+
+        public static SoundEffect GetSoundEffect(string name)
+        {
+            return content.Load<SoundEffect>(name);
         }
     }
 }

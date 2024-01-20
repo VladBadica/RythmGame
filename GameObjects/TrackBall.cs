@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RythmGame.Utils;
-using System;
 
 namespace RythmGame.GameObjects
 {
@@ -18,10 +17,22 @@ namespace RythmGame.GameObjects
         public Rectangle Rectangle;
         private Color color = Color.White;
         private DirectionEnum direction = DirectionEnum.left;
-        private int speed = 2;
+        private int speed = 4;
 
         private double elapsedMovementTime;
         private double MovementDelayTime = 5;
+
+        public void ChangeDirection()
+        {
+            if (direction == DirectionEnum.left)
+            {
+                direction = DirectionEnum.right; 
+            }
+            else if (direction == DirectionEnum.right)
+            {
+                direction = DirectionEnum.left;
+            }
+        }
 
         public override void Draw(SpriteBatch spriteBatch)
         {
@@ -30,6 +41,7 @@ namespace RythmGame.GameObjects
 
         public override void Initialize()
         {
+            direction = DirectionEnum.left;
             Rectangle.Width = 32;
             Rectangle.Height = 32;
             Rectangle.X = Configuration.WindowWidth / 2 - Rectangle.Width / 2;
@@ -47,15 +59,6 @@ namespace RythmGame.GameObjects
             if (elapsedMovementTime < MovementDelayTime)
             {
                 return;
-            }
-
-            if (Rectangle.X + Rectangle.Width > Configuration.WindowWidth / 2 + Configuration.WindowWidth / 4)
-            {
-                direction = DirectionEnum.left;
-            }
-            if (Rectangle.X + Rectangle.Width < Configuration.WindowWidth / 2 - Configuration.WindowWidth / 4)
-            {
-                direction = DirectionEnum.right;
             }
 
             Rectangle.X += (int)direction * speed;
