@@ -16,5 +16,10 @@ namespace RythmGame.Utils
         {
             return content.Load<Texture2D>(name);
         }
+
+        public static SpriteFont GetSpriteFont(string name)
+        {
+            return content.Load<SpriteFont>(name);
+        }
     }
 }

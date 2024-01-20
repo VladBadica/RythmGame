@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RythmGame.Utils;
+using System;
 
 namespace RythmGame
 {

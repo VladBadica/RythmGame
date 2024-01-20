@@ -15,7 +15,7 @@ namespace RythmGame.GameObjects
         };
 
         private Texture2D texture;
-        private Rectangle position;
+        public Rectangle Rectangle;
         private Color color = Color.White;
         private DirectionEnum direction = DirectionEnum.left;
         private int speed = 2;
@@ -25,15 +25,15 @@ namespace RythmGame.GameObjects
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, color);
+            spriteBatch.Draw(texture, Rectangle, color);
         }
 
         public override void Initialize()
         {
-            position.Width = 32;
-            position.Height = 32;
-            position.X = Configuration.WindowWidth / 2 - position.Width / 2;
-            position.Y = Configuration.WindowHeight - position.Height - 50;
+            Rectangle.Width = 32;
+            Rectangle.Height = 32;
+            Rectangle.X = Configuration.WindowWidth / 2 - Rectangle.Width / 2;
+            Rectangle.Y = Configuration.WindowHeight - Rectangle.Height - 50;
         }
 
         public override void LoadContent()
@@ -49,16 +49,16 @@ namespace RythmGame.GameObjects
                 return;
             }
 
-            if (position.X + position.Width > Configuration.WindowWidth / 2 + Configuration.WindowWidth / 4)
+            if (Rectangle.X + Rectangle.Width > Configuration.WindowWidth / 2 + Configuration.WindowWidth / 4)
             {
                 direction = DirectionEnum.left;
             }
-            if (position.X + position.Width < Configuration.WindowWidth / 2 - Configuration.WindowWidth / 4)
+            if (Rectangle.X + Rectangle.Width < Configuration.WindowWidth / 2 - Configuration.WindowWidth / 4)
             {
                 direction = DirectionEnum.right;
             }
 
-            position.X += (int)direction * speed;
+            Rectangle.X += (int)direction * speed;
             elapsedMovementTime = 0;
         }
     }

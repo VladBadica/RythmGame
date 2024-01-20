@@ -7,19 +7,20 @@ namespace RythmGame
 {
     public class Map
     {
-        public List<Step> steps;
+        private List<Step> steps;
 
         public Map()
         {
             steps = new List<Step>();
         }
 
+        public Step CurrentStep => steps[0];
         private void AddStep(int posX)
         {
-            int posY = steps.Count == 0 ? Configuration.WindowHeight - 32 - 50 : steps[steps.Count - 1].Position.Y - 32;
+            int posY = steps.Count == 0 ? Configuration.WindowHeight - 32 - 50 : steps[steps.Count - 1].Rectangle.Y - 32;
             steps.Add(new Step()
             {
-                Position = new Rectangle(posX, posY, 6, 32)
+                Rectangle = new Rectangle(posX, posY, 6, 32)
             });
         }
 
@@ -38,5 +39,10 @@ namespace RythmGame
             steps.ForEach(step => step.Draw(spriteBatch));
         }
 
+        public void NextStep()
+        {
+            steps.RemoveAt(0);
+            steps.ForEach(step => step.Rectangle.Y += 32);
+        }
     }
 }

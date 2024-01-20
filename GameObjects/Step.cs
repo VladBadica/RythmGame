@@ -9,7 +9,7 @@ namespace RythmGame.GameObjects
         private Texture2D texture;
         private Color color = Color.White;
 
-        public Rectangle Position;
+        public Rectangle Rectangle;
 
         public Step()
         {
@@ -18,7 +18,7 @@ namespace RythmGame.GameObjects
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, Position, color);
+            spriteBatch.Draw(texture, Rectangle, color);
         }
 
         public override void Initialize()

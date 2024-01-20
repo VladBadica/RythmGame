@@ -9,34 +9,34 @@ namespace RythmGame.Utils
 {
     public static class InputHandler
     {
-        private static MouseState currentMouseState;
-        private static MouseState lastMouseState;
-        private static KeyboardState currentKeyboardSate;
-        private static KeyboardState lastKeyboardState;
+        public static MouseState CurrentMouseState;
+        public static MouseState LastMouseState;
+        public static KeyboardState CurrentKeyboardState;
+        public static KeyboardState LastKeyboardState;
 
         public static void Update()
         {
-            lastMouseState = currentMouseState;
-            currentMouseState = Mouse.GetState();
-            lastKeyboardState = currentKeyboardSate;
-            currentKeyboardSate = Keyboard.GetState();
+            LastMouseState = CurrentMouseState;
+            CurrentMouseState = Mouse.GetState();
+            LastKeyboardState = CurrentKeyboardState;
+            CurrentKeyboardState = Keyboard.GetState();
         }
 
         public static bool IsKeyPressed(Keys key)
         {
-            return currentKeyboardSate.IsKeyDown(key) && !lastKeyboardState.IsKeyDown(key);
+            return CurrentKeyboardState.IsKeyDown(key) && !LastKeyboardState.IsKeyDown(key);
         }
 
         public static bool LeftClick()
         {
-            return currentMouseState.LeftButton == ButtonState.Pressed &&
-                   lastMouseState.LeftButton == ButtonState.Released;
+            return CurrentMouseState.LeftButton == ButtonState.Pressed &&
+                   LastMouseState.LeftButton == ButtonState.Released;
         }
 
         public static bool RightClick()
         {
-            return currentMouseState.RightButton == ButtonState.Pressed &&
-                   lastMouseState.RightButton == ButtonState.Released;
+            return CurrentMouseState.RightButton == ButtonState.Pressed &&
+                   LastMouseState.RightButton == ButtonState.Released;
         }
     }
 }
