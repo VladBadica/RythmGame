@@ -6,6 +6,10 @@ namespace RythmGame.Utils
 {
     public static class SoundPlayer
     {
+        private static float masterVolume;
+        private static float musicVolume;
+        private static float effectsVolume;
+
         public enum SoundEffects {
             StepHit = 0,
             TrackFailed = 1
@@ -18,8 +22,13 @@ namespace RythmGame.Utils
         {
             soundEffects = new Dictionary<SoundEffects, SoundEffect>();
             songs = new Dictionary<string, Song>();
+
+            masterVolume = UserPrefs.Settings.MasterVolume;
+            musicVolume = UserPrefs.Settings.MusicVolume;
+            effectsVolume = UserPrefs.Settings.EffectsVolume;
+
             MediaPlayer.IsRepeating = false;
-            MediaPlayer.Volume = 0.05f;
+            MediaPlayer.Volume = masterVolume * musicVolume;
         }
 
         public static void LoadContent()
@@ -32,7 +41,7 @@ namespace RythmGame.Utils
 
         public static void PlayEffect(SoundEffects effectName)
         {
-            soundEffects[effectName].Play(0.05f, 0.0f, 0.0f);
+            soundEffects[effectName].Play(masterVolume * effectsVolume, 0.0f, 0.0f);
         }
 
         public static void PlaySong(string songName)

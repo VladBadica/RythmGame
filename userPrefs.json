@@ -2,5 +2,9 @@
   "WindowWidth": 1024,
   "WindowHeight": 600,
   "LeftActionKey": "Z",
-  "RightActionKey": "X"
+  "RightActionKey": "X",
+  "MasterVolume": "0.05",
+  "MusicVolume": "1",
+  "EffectsVolume": "1",
+  "HiddenSetting":  "Vijai"
 }

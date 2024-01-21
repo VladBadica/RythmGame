@@ -35,9 +35,9 @@ namespace RythmGame
 
         protected override void Initialize()
         {
+            UserPrefs.Initialize();
             AssetManager.Initialize(Content);
             SoundPlayer.Initialize();
-            UserPrefs.Initialize();
             gameEngine.Initialize();
             gameEngine.StartGame();
 

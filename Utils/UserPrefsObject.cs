@@ -8,5 +8,8 @@ namespace RythmGame.Utils
         public int WindowWidth;
         public Keys LeftActionKey;
         public Keys RightActionKey;
+        public float MasterVolume;
+        public float MusicVolume;
+        public float EffectsVolume;
     }
 }
