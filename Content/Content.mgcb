@@ -13,26 +13,32 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin calibri18.spritefont
+#begin songs/gods.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:songs/gods.mp3
+
+#begin soundEffects/rocketExplosionSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:soundEffects/rocketExplosionSound.wav
+
+#begin soundEffects/slimeSplash.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:soundEffects/slimeSplash.wav
+
+#begin spriteFonts/calibri18.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:calibri18.spritefont
+/build:spriteFonts/calibri18.spritefont
 
-#begin rocketExplosionSound.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:rocketExplosionSound.wav
-
-#begin slimeSplash.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:slimeSplash.wav
-
-#begin stepLine.png
+#begin textures/stepLine.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -42,9 +48,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:stepLine.png
+/build:textures/stepLine.png
 
-#begin trackBall.png
+#begin textures/trackBall.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -54,5 +60,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:trackBall.png
+/build:textures/trackBall.png
 

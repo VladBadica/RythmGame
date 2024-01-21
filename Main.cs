@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using RythmGame.GamePlay;
 using RythmGame.Utils;
 
 namespace RythmGame
@@ -9,7 +10,7 @@ namespace RythmGame
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private GameEngine gameEngine;
+        private TrackEngine gameEngine;
 
         public Main()
         {
@@ -17,7 +18,7 @@ namespace RythmGame
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             
-            gameEngine = new GameEngine();
+            gameEngine = new TrackEngine("gods");
         }
 
         protected override void Draw(GameTime gameTime)

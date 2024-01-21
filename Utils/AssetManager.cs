@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace RythmGame.Utils
 {
@@ -15,17 +16,22 @@ namespace RythmGame.Utils
 
         public static Texture2D GetTexture(string name)
         {
-            return content.Load<Texture2D>(name);
+            return content.Load<Texture2D>($"textures/{name}");
         }
 
         public static SpriteFont GetSpriteFont(string name)
         {
-            return content.Load<SpriteFont>(name);
+            return content.Load<SpriteFont>($"spriteFonts/{name}");
         }
 
         public static SoundEffect GetSoundEffect(string name)
         {
-            return content.Load<SoundEffect>(name);
+            return content.Load<SoundEffect>($"soundEffects/{name}");
+        }
+
+        public static Song GetSong(string name)
+        {
+            return content.Load<Song>($"songs/{name}");
         }
     }
 }
