@@ -44,12 +44,6 @@ namespace RythmGame
             running = false;
             trackBall = new TrackBall();
             map = new Map();
-            scoreLabel = new Label("0", new Vector2(0, 0));
-            timerLabel = new Label("0", new Vector2(Configuration.WindowWidth / 2 - 15, Configuration.WindowHeight / 2 - 15));
-            endGameLabel = new Label("You  failed", new Vector2(Configuration.WindowWidth / 2 - 15, Configuration.WindowHeight / 2 - 15))
-            {
-                Visible = false
-            };
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -61,6 +55,16 @@ namespace RythmGame
             map.Draw(spriteBatch);
             scoreLabel.Draw(spriteBatch);
             endGameLabel.Draw(spriteBatch);
+        }
+
+        public void Initialize()
+        {
+            scoreLabel = new Label("0", new Vector2(0, 0));
+            timerLabel = new Label("0", new Vector2(UserPrefs.Settings.WindowWidth / 2 - 15, UserPrefs.Settings.WindowHeight / 2 - 15));
+            endGameLabel = new Label("You  failed", new Vector2(UserPrefs.Settings.WindowWidth / 2 - 15, UserPrefs.Settings.WindowHeight / 2 - 15))
+            {
+                Visible = false
+            };
         }
 
         public void LoadContent()
@@ -110,12 +114,12 @@ namespace RythmGame
 
             trackBall.Update(gameTime);
 
-            if (trackBall.Rectangle.X < 100 || trackBall.Rectangle.X > Configuration.WindowWidth - 100)
+            if (trackBall.Rectangle.X < 100 || trackBall.Rectangle.X > UserPrefs.Settings.WindowWidth - 100)
             {
                 GameFailed();
             }
 
-            if (InputHandler.IsKeyPressed(Keys.Space))
+            if (InputHandler.IsKeyPressed(UserPrefs.Settings.LeftActionKey) || InputHandler.IsKeyPressed(UserPrefs.Settings.RightActionKey))
             {
                 if (trackBall.Rectangle.Intersects(map.CurrentStep.Rectangle))
                 {

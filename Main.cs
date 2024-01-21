@@ -16,7 +16,7 @@ namespace RythmGame
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-
+            
             gameEngine = new GameEngine();
         }
 
@@ -35,10 +35,12 @@ namespace RythmGame
         protected override void Initialize()
         {
             AssetManager.Initialize(Content);
+            UserPrefs.Initialize();
+            gameEngine.Initialize();
             gameEngine.StartGame();
 
-            graphics.PreferredBackBufferHeight = Configuration.WindowHeight;
-            graphics.PreferredBackBufferWidth = Configuration.WindowWidth;
+            graphics.PreferredBackBufferHeight = UserPrefs.Settings.WindowHeight;
+            graphics.PreferredBackBufferWidth = UserPrefs.Settings.WindowWidth;
             graphics.ApplyChanges();
 
             base.Initialize();

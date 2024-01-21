@@ -44,8 +44,8 @@ namespace RythmGame.GameObjects
             direction = DirectionEnum.left;
             Rectangle.Width = 32;
             Rectangle.Height = 32;
-            Rectangle.X = Configuration.WindowWidth / 2 - Rectangle.Width / 2;
-            Rectangle.Y = Configuration.WindowHeight - Rectangle.Height - 50;
+            Rectangle.X = UserPrefs.Settings.WindowWidth / 2 - Rectangle.Width / 2;
+            Rectangle.Y = UserPrefs.Settings.WindowHeight - Rectangle.Height - 50;
         }
 
         public override void LoadContent()
