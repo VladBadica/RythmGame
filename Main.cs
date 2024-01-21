@@ -36,6 +36,7 @@ namespace RythmGame
         protected override void Initialize()
         {
             AssetManager.Initialize(Content);
+            SoundPlayer.Initialize();
             UserPrefs.Initialize();
             gameEngine.Initialize();
             gameEngine.StartGame();
@@ -50,6 +51,8 @@ namespace RythmGame
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            SoundPlayer.LoadContent();
             gameEngine.LoadContent();
         }
 

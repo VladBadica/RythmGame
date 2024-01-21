@@ -16,8 +16,6 @@ namespace RythmGame.GamePlay
         {
             steps = new List<Step>();
             this.songName = songName;
-            MediaPlayer.IsRepeating = false;
-            MediaPlayer.Volume = 0.03f;
         }
 
         public Step CurrentStep => steps[0];
@@ -38,11 +36,20 @@ namespace RythmGame.GamePlay
         public void Initialize()
         {
             steps.Clear();
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 3; i++)
             {
                 AddStep(420);
                 AddStep(UserPrefs.Settings.WindowWidth - 420);
             }
+            AddStep(470);
+            AddStep(UserPrefs.Settings.WindowWidth - 470);
+            AddStep(470);
+            for (int i = 0; i < 3; i++)
+            {
+                AddStep(UserPrefs.Settings.WindowWidth - 420);
+                AddStep(420);
+            }
+            AddStep(UserPrefs.Settings.WindowWidth - 490);
             for (int i = 0; i < 5; i++)
             {
                 AddStep(460);
@@ -68,12 +75,12 @@ namespace RythmGame.GamePlay
 
         public void StartMap()
         {
-            MediaPlayer.Play(AssetManager.GetSong(songName));
+            SoundPlayer.PlaySong(songName);
         }
 
         public void StopMap()
         {
-            MediaPlayer.Stop();
+            SoundPlayer.StopSong();
         }
     }
 }

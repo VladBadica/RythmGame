@@ -86,7 +86,7 @@ namespace RythmGame.GamePlay
                 score++;
                 map.NextStep();
 
-                AssetManager.GetSoundEffect("slimeSplash").Play(0.05f, 0.0f, 0.0f);
+                SoundPlayer.PlayEffect(SoundPlayer.SoundEffects.StepHit);
                 trackBall.ChangeDirection();
             }
             else
@@ -137,7 +137,7 @@ namespace RythmGame.GamePlay
             running = false;
             map.StopMap();
 
-            AssetManager.GetSoundEffect("rocketExplosionSound").Play(0.05f, 0.0f, 0.0f);
+            SoundPlayer.PlayEffect(SoundPlayer.SoundEffects.TrackFailed);
         }
 
         public void Update(GameTime gameTime)
