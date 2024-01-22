@@ -10,6 +10,13 @@ namespace RythmGame.GameObjects
         private Color color = Color.White;
 
         public Rectangle Rectangle;
+        public int CenterX
+        {
+            get
+            {
+                return Rectangle.X + Rectangle.Width / 2;
+            }
+        }
 
         public Step()
         {

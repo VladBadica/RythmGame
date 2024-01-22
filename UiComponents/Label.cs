@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using RythmGame.Utils;
+using System;
 
 namespace RythmGame.UiComponents
 {
@@ -16,8 +17,20 @@ namespace RythmGame.UiComponents
         private double elapsedTime;
 
         private Color color = Color.Black;
+        public byte Alpha
+        {
+            get
+            {
+                return color.A;
+            }
+            set
+            {
+                color.A = value;
+            }
+        }
         public SpriteFont Font;
         public Vector2 Size => Font.MeasureString(Text);
+        public event EventHandler TimedLabelHidden;
 
         public Label(string text, Vector2 position, double visibilityTime)
         {
@@ -68,13 +81,13 @@ namespace RythmGame.UiComponents
 
             if (elapsedTime >= visibilityTime && !alwaysVisible)
             {
+                TimedLabelHidden.Invoke(this, null);
                 Visible = false;
                 elapsedTime = 0;
             }
 
             elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
         }
-
 
     }
 }

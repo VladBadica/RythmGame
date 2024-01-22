@@ -39,7 +39,6 @@ namespace RythmGame
             AssetManager.Initialize(Content);
             SoundPlayer.Initialize();
             gameEngine.Initialize();
-            gameEngine.StartGame();
 
             graphics.PreferredBackBufferHeight = UserPrefs.Settings.WindowHeight;
             graphics.PreferredBackBufferWidth = UserPrefs.Settings.WindowWidth;
@@ -63,7 +62,7 @@ namespace RythmGame
 
             if (InputHandler.IsKeyPressed(Keys.R))
             {
-                gameEngine.StartGame();
+                gameEngine.InitGame();
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))

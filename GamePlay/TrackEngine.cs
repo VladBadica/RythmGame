@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using RythmGame.GameObjects;
 using RythmGame.Utils;
 using RythmGame.UiComponents;
+using System;
 
 namespace RythmGame.GamePlay
 {
@@ -15,7 +16,7 @@ namespace RythmGame.GamePlay
             set
             {
                 _score = value;
-                scoreLabel.Text = _score.ToString();
+                scoreLabel.Text = "Score: " + _score.ToString();
             }
         }
         private bool runCountdown;
@@ -36,9 +37,15 @@ namespace RythmGame.GamePlay
         private TrackBall trackBall;
         private Map map;
         private Label scoreLabel;
+        private Label accuracyLabel;
         private Label endGameLabel;
         private Label timerLabel;
         private double elapsedTimeToStart;
+        private PerformanceTracker performanceTracker;
+        private LabelListOverflow comboHitInfoLabels;
+        private Step line1;
+        private Step line2;
+        private Step line3;
 
         public TrackEngine(string songName)
         {
@@ -46,6 +53,7 @@ namespace RythmGame.GamePlay
             running = false;
             trackBall = new TrackBall();
             map = new Map(songName);
+            performanceTracker = new PerformanceTracker();
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -53,7 +61,12 @@ namespace RythmGame.GamePlay
             map.Draw(spriteBatch);
             trackBall.Draw(spriteBatch);
             scoreLabel.Draw(spriteBatch);
+            accuracyLabel.Draw(spriteBatch);
             endGameLabel.Draw(spriteBatch);
+            comboHitInfoLabels.Draw(spriteBatch);
+            //line1.Draw(spriteBatch);
+            //line2.Draw(spriteBatch);
+            //line3.Draw(spriteBatch);
 
             if (runCountdown)
             {
@@ -63,7 +76,13 @@ namespace RythmGame.GamePlay
 
         public void Initialize()
         {
-            scoreLabel = new Label("0", new Vector2(0, 0));
+            comboHitInfoLabels = new LabelListOverflow(new Vector2(UserPrefs.Settings.WindowWidth / 2 - 30, UserPrefs.Settings.WindowHeight / 2), 2000);
+            line1 = new Step() { Rectangle = new Rectangle(UserPrefs.Settings.WindowWidth / 4, 0, 1, UserPrefs.Settings.WindowHeight) };
+            line2 = new Step() { Rectangle = new Rectangle(UserPrefs.Settings.WindowWidth / 2, 0, 1, UserPrefs.Settings.WindowHeight) };
+            line3 = new Step() { Rectangle = new Rectangle(UserPrefs.Settings.WindowWidth / 2 + UserPrefs.Settings.WindowWidth / 4, 0, 1, UserPrefs.Settings.WindowHeight) };
+
+            scoreLabel = new Label("Score: 0", new Vector2(0, 0));
+            accuracyLabel = new Label("Acc: 0%", new Vector2(0, 30));
             timerLabel = new Label("0", new Vector2(UserPrefs.Settings.WindowWidth / 2 - 15, UserPrefs.Settings.WindowHeight / 2 - 15));
             endGameLabel = new Label("You  failed", new Vector2(UserPrefs.Settings.WindowWidth / 2 - 15, UserPrefs.Settings.WindowHeight / 2 - 15))
             {
@@ -75,6 +94,7 @@ namespace RythmGame.GamePlay
         {
             trackBall.LoadContent();
             scoreLabel.LoadContent();
+            accuracyLabel.LoadContent();
             endGameLabel.LoadContent();
             timerLabel.LoadContent();
         }
@@ -83,11 +103,15 @@ namespace RythmGame.GamePlay
         {
             if (trackBall.Rectangle.Intersects(map.CurrentStep.Rectangle))
             {
-                score++;
+                performanceTracker.AddHitAccuracy(trackBall.Rectangle.Width, trackBall.CenterX, map.CurrentStep.CenterX);
+                score += performanceTracker.GetLastHitScore();
+
+                accuracyLabel.Text = performanceTracker.Accuracy;
                 map.NextStep();
 
                 SoundPlayer.PlayEffect(SoundPlayer.SoundEffects.StepHit);
                 trackBall.ChangeDirection();
+                comboHitInfoLabels.AddLabel(performanceTracker.GetLastHitInfoLabel());
             }
             else
             {
@@ -119,7 +143,8 @@ namespace RythmGame.GamePlay
             trackBall.Start();
         }
 
-        public void StartGame()
+        //Starts Game and CountdownTimer
+        public void InitGame()
         {
             score = 0;
             elapsedTimeToStart = 0;
@@ -127,8 +152,11 @@ namespace RythmGame.GamePlay
             running = true;
             runCountdown = true;
             endGameLabel.Visible = false;
+            accuracyLabel.Text = "Acc: 0%";
             trackBall.Initialize();
             map.Initialize();
+            performanceTracker.Initialize();
+            comboHitInfoLabels.ClearLabels();
         }
 
         private void TrackFailed()
@@ -136,6 +164,7 @@ namespace RythmGame.GamePlay
             endGameLabel.Visible = true;
             running = false;
             map.StopMap();
+            comboHitInfoLabels.ClearLabels();
 
             SoundPlayer.PlayEffect(SoundPlayer.SoundEffects.TrackFailed);
         }
@@ -153,10 +182,10 @@ namespace RythmGame.GamePlay
                 return;
             }
           
-
             trackBall.Update(gameTime);
+            comboHitInfoLabels.Update(gameTime);
 
-            if (trackBall.Rectangle.X < 100 || trackBall.Rectangle.X > UserPrefs.Settings.WindowWidth - 100)
+            if (trackBall.CenterX < 100 || trackBall.CenterX > UserPrefs.Settings.WindowWidth - 100)
             {
                 TrackFailed();
             }
@@ -165,6 +194,7 @@ namespace RythmGame.GamePlay
             {
                 HandleActionKeysPressed();
             }
+
         }
     }
 }

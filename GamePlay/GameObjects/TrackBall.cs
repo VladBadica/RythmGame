@@ -16,12 +16,17 @@ namespace RythmGame.GameObjects
         private bool running;
         private Texture2D texture;
         public Rectangle Rectangle;
+        public int CenterX {
+            get {
+                return Rectangle.X + Rectangle.Width / 2;
+            } 
+        }
         private Color color = Color.White;
         private DirectionEnum direction = DirectionEnum.left;
-        private int speed = 4;
+        private int speed = 3;
 
         private double elapsedMovementTime;
-        private double MovementDelayTime = 5;
+        private double MovementDelayTime = 4;
 
         public void ChangeDirection()
         {

@@ -24,7 +24,7 @@ namespace RythmGame.GamePlay
             int posY = steps.Count == 0 ? UserPrefs.Settings.WindowHeight - 32 - 50 : steps[steps.Count - 1].Rectangle.Y - 32;
             steps.Add(new Step()
             {
-                Rectangle = new Rectangle(posX, posY, 6, 32)
+                Rectangle = new Rectangle(posX, posY, 3, 32)
             });
         }
 
