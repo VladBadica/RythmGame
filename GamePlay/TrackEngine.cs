@@ -9,6 +9,7 @@ namespace RythmGame.GamePlay
 {
     public class TrackEngine
     {
+        private string songName;
         private int _score;
         private int score
         {
@@ -49,11 +50,24 @@ namespace RythmGame.GamePlay
 
         public TrackEngine(string songName)
         {
+            this.songName = songName;
             runCountdown = true;
             running = false;
             trackBall = new TrackBall();
-            map = new Map(songName);
+            map = new Map();
             performanceTracker = new PerformanceTracker();
+            comboHitInfoLabels = new LabelListOverflow(new Vector2(UserPrefs.Settings.WindowWidth / 2 - 30, UserPrefs.Settings.WindowHeight / 2), 2000);
+            line1 = new Step() { Rectangle = new Rectangle(UserPrefs.Settings.WindowWidth / 4, 0, 1, UserPrefs.Settings.WindowHeight) };
+            line2 = new Step() { Rectangle = new Rectangle(UserPrefs.Settings.WindowWidth / 2, 0, 1, UserPrefs.Settings.WindowHeight) };
+            line3 = new Step() { Rectangle = new Rectangle(UserPrefs.Settings.WindowWidth / 2 + UserPrefs.Settings.WindowWidth / 4, 0, 1, UserPrefs.Settings.WindowHeight) };
+
+            scoreLabel = new Label("Score: 0", new Vector2(0, 0));
+            accuracyLabel = new Label("Acc: 0%", new Vector2(0, 30));
+            timerLabel = new Label("0", new Vector2(UserPrefs.Settings.WindowWidth / 2 - 15, UserPrefs.Settings.WindowHeight / 2 - 15));
+            endGameLabel = new Label("You  failed", new Vector2(UserPrefs.Settings.WindowWidth / 2 - 15, UserPrefs.Settings.WindowHeight / 2 - 15))
+            {
+                Visible = false
+            };
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -72,31 +86,6 @@ namespace RythmGame.GamePlay
             {
                 timerLabel.Draw(spriteBatch);
             }
-        }
-
-        public void Initialize()
-        {
-            comboHitInfoLabels = new LabelListOverflow(new Vector2(UserPrefs.Settings.WindowWidth / 2 - 30, UserPrefs.Settings.WindowHeight / 2), 2000);
-            line1 = new Step() { Rectangle = new Rectangle(UserPrefs.Settings.WindowWidth / 4, 0, 1, UserPrefs.Settings.WindowHeight) };
-            line2 = new Step() { Rectangle = new Rectangle(UserPrefs.Settings.WindowWidth / 2, 0, 1, UserPrefs.Settings.WindowHeight) };
-            line3 = new Step() { Rectangle = new Rectangle(UserPrefs.Settings.WindowWidth / 2 + UserPrefs.Settings.WindowWidth / 4, 0, 1, UserPrefs.Settings.WindowHeight) };
-
-            scoreLabel = new Label("Score: 0", new Vector2(0, 0));
-            accuracyLabel = new Label("Acc: 0%", new Vector2(0, 30));
-            timerLabel = new Label("0", new Vector2(UserPrefs.Settings.WindowWidth / 2 - 15, UserPrefs.Settings.WindowHeight / 2 - 15));
-            endGameLabel = new Label("You  failed", new Vector2(UserPrefs.Settings.WindowWidth / 2 - 15, UserPrefs.Settings.WindowHeight / 2 - 15))
-            {
-                Visible = false
-            };
-        }
-
-        public void LoadContent()
-        {
-            trackBall.LoadContent();
-            scoreLabel.LoadContent();
-            accuracyLabel.LoadContent();
-            endGameLabel.LoadContent();
-            timerLabel.LoadContent();
         }
 
         private void HandleActionKeysPressed()
@@ -139,8 +128,8 @@ namespace RythmGame.GamePlay
 
         private void StartTrack()
         {
-            map.StartMap();
             trackBall.Start();
+            SoundPlayer.PlaySong(songName);
         }
 
         //Starts Game and CountdownTimer
@@ -153,19 +142,18 @@ namespace RythmGame.GamePlay
             runCountdown = true;
             endGameLabel.Visible = false;
             accuracyLabel.Text = "Acc: 0%";
-            trackBall.Initialize();
-            map.Initialize();
-            performanceTracker.Initialize();
-            comboHitInfoLabels.ClearLabels();
+            map.Reset();
+            performanceTracker.Reset();
+            comboHitInfoLabels.Reset();
         }
 
         private void TrackFailed()
         {
             endGameLabel.Visible = true;
             running = false;
-            map.StopMap();
-            comboHitInfoLabels.ClearLabels();
+            comboHitInfoLabels.Reset();
 
+            SoundPlayer.StopSong();
             SoundPlayer.PlayEffect(SoundPlayer.SoundEffects.TrackFailed);
         }
 

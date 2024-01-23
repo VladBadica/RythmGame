@@ -4,10 +4,9 @@ using RythmGame.Utils;
 
 namespace RythmGame.GameObjects
 {
-    public class Step : GameObject
+    public class Step
     {
         private Texture2D texture;
-        private Color color = Color.White;
 
         public Rectangle Rectangle;
         public int CenterX
@@ -23,20 +22,12 @@ namespace RythmGame.GameObjects
             texture = AssetManager.GetTexture("stepLine");
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, Rectangle, color);
+            spriteBatch.Draw(texture, Rectangle, Color.White);
         }
 
-        public override void Initialize()
-        {
-        }
-
-        public override void LoadContent()
-        {
-        }
-
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
         }
     }

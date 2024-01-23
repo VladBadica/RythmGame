@@ -18,10 +18,14 @@ namespace RythmGame.Utils
         private static Dictionary<SoundEffects, SoundEffect> soundEffects;
         private static Dictionary<string, Song> songs;
 
-        public static void Initialize()
+        public static void LoadContent()
         {
             soundEffects = new Dictionary<SoundEffects, SoundEffect>();
             songs = new Dictionary<string, Song>();
+
+            soundEffects.Add(SoundEffects.StepHit, AssetManager.GetSoundEffect("slimeSplash"));
+            soundEffects.Add(SoundEffects.TrackFailed, AssetManager.GetSoundEffect("rocketExplosionSound"));
+            songs.Add("gods", AssetManager.GetSong("gods"));
 
             masterVolume = UserPrefs.Settings.MasterVolume;
             musicVolume = UserPrefs.Settings.MusicVolume;
@@ -29,14 +33,6 @@ namespace RythmGame.Utils
 
             MediaPlayer.IsRepeating = false;
             MediaPlayer.Volume = masterVolume * musicVolume;
-        }
-
-        public static void LoadContent()
-        {
-            AssetManager.GetSoundEffect("slimeSplash");
-            soundEffects.Add(SoundEffects.StepHit, AssetManager.GetSoundEffect("slimeSplash"));
-            soundEffects.Add(SoundEffects.TrackFailed, AssetManager.GetSoundEffect("rocketExplosionSound"));
-            songs.Add("gods", AssetManager.GetSong("gods"));
         }
 
         public static void PlayEffect(SoundEffects effectName)

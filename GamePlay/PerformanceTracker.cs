@@ -74,7 +74,7 @@ namespace RythmGame.GamePlay
             }
         }
 
-        public void Initialize()
+        public void Reset()
         {
             accuracyList.Clear();
             perfectCombo = 0;

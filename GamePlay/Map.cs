@@ -10,12 +10,10 @@ namespace RythmGame.GamePlay
     public class Map
     {
         private List<Step> steps;
-        private string songName;
 
-        public Map(string songName)
+        public Map()
         {
             steps = new List<Step>();
-            this.songName = songName;
         }
 
         public Step CurrentStep => steps[0];
@@ -33,7 +31,7 @@ namespace RythmGame.GamePlay
             steps.ForEach(step => step.Draw(spriteBatch));
         }
 
-        public void Initialize()
+        public void Reset()
         {
             steps.Clear();
             for (int i = 0; i < 3; i++)
@@ -71,16 +69,6 @@ namespace RythmGame.GamePlay
         {
             steps.RemoveAt(0);
             steps.ForEach(step => step.Rectangle.Y += 32);
-        }
-
-        public void StartMap()
-        {
-            SoundPlayer.PlaySong(songName);
-        }
-
-        public void StopMap()
-        {
-            SoundPlayer.StopSong();
         }
     }
 }

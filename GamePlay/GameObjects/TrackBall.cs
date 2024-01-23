@@ -4,7 +4,7 @@ using RythmGame.Utils;
 
 namespace RythmGame.GameObjects
 {
-    public class TrackBall : GameObject
+    public class TrackBall
     {
         private enum DirectionEnum
         {
@@ -15,18 +15,31 @@ namespace RythmGame.GameObjects
 
         private bool running;
         private Texture2D texture;
+        private DirectionEnum direction;
+        private int speed;
         public Rectangle Rectangle;
-        public int CenterX {
-            get {
+        public int CenterX
+        {
+            get
+            {
                 return Rectangle.X + Rectangle.Width / 2;
-            } 
+            }
         }
-        private Color color = Color.White;
-        private DirectionEnum direction = DirectionEnum.left;
-        private int speed = 3;
 
         private double elapsedMovementTime;
-        private double MovementDelayTime = 4;
+        private double movementDelayTime;
+
+        public TrackBall()
+        {
+            texture = AssetManager.GetTexture("trackBall");
+            direction = DirectionEnum.stop;
+            Rectangle.Width = 32;
+            Rectangle.Height = 32;
+            Rectangle.X = UserPrefs.Settings.WindowWidth / 2 - Rectangle.Width / 2;
+            Rectangle.Y = UserPrefs.Settings.WindowHeight - Rectangle.Height - 50;
+            speed = 3;
+            movementDelayTime = 4;
+        }
 
         public void ChangeDirection()
         {
@@ -40,23 +53,9 @@ namespace RythmGame.GameObjects
             }
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, Rectangle, color);
-        }
-
-        public override void Initialize()
-        {
-            direction = DirectionEnum.stop;
-            Rectangle.Width = 32;
-            Rectangle.Height = 32;
-            Rectangle.X = UserPrefs.Settings.WindowWidth / 2 - Rectangle.Width / 2;
-            Rectangle.Y = UserPrefs.Settings.WindowHeight - Rectangle.Height - 50;
-        }
-
-        public override void LoadContent()
-        {
-            texture = AssetManager.GetTexture("trackBall");
+            spriteBatch.Draw(texture, Rectangle, Color.White);
         }
 
         public void Start()
@@ -71,7 +70,7 @@ namespace RythmGame.GameObjects
             direction = DirectionEnum.stop;
         }
 
-        public override void Update(GameTime gameTime)
+        public void Update(GameTime gameTime)
         {
             if(!running)
             {
@@ -79,7 +78,7 @@ namespace RythmGame.GameObjects
             }
 
             elapsedMovementTime += gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (elapsedMovementTime < MovementDelayTime)
+            if (elapsedMovementTime < movementDelayTime)
             {
                 return;
             }

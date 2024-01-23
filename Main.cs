@@ -10,7 +10,7 @@ namespace RythmGame
     {
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
-        private TrackEngine gameEngine;
+        private GameEngine gameEngine;
 
         public Main()
         {
@@ -18,7 +18,6 @@ namespace RythmGame
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
             
-            gameEngine = new TrackEngine("gods");
         }
 
         protected override void Draw(GameTime gameTime)
@@ -37,8 +36,6 @@ namespace RythmGame
         {
             UserPrefs.Initialize();
             AssetManager.Initialize(Content);
-            SoundPlayer.Initialize();
-            gameEngine.Initialize();
 
             graphics.PreferredBackBufferHeight = UserPrefs.Settings.WindowHeight;
             graphics.PreferredBackBufferWidth = UserPrefs.Settings.WindowWidth;
@@ -50,20 +47,15 @@ namespace RythmGame
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
             SoundPlayer.LoadContent();
-            gameEngine.LoadContent();
+
+            gameEngine = new GameEngine();
         }
 
         protected override void Update(GameTime gameTime)
         {
             InputHandler.Update();
             gameEngine.Update(gameTime);
-
-            if (InputHandler.IsKeyPressed(Keys.R))
-            {
-                gameEngine.InitGame();
-            }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {

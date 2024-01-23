@@ -37,7 +37,7 @@ namespace RythmGame.UiComponents
             labels.ForEach(label => label.Draw(spriteBatch));
         }
 
-        public void ClearLabels()
+        public void Reset()
         {
             labels.Clear();
             markedForRemoval.Clear();

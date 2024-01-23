@@ -43,6 +43,7 @@ namespace RythmGame.UiComponents
 
         public Label(string text, Vector2 position)
         {
+            Font = AssetManager.GetSpriteFont("calibri18");
             Text = text;
             Position = position;
             Visible = true;
@@ -58,11 +59,6 @@ namespace RythmGame.UiComponents
             }
 
             spriteBatch.DrawString(Font, Text, Position, color);
-        }
-
-        public void LoadContent()
-        {
-            Font = AssetManager.GetSpriteFont("calibri18");
         }
 
         public void Show(double timeVisible)
