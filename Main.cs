@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RythmGame.GamePlay;
 using RythmGame.Utils;
+using System;
 
 namespace RythmGame
 {
@@ -37,8 +38,8 @@ namespace RythmGame
             UserPrefs.Initialize();
             AssetManager.Initialize(Content);
 
-            graphics.PreferredBackBufferHeight = UserPrefs.Settings.WindowHeight;
-            graphics.PreferredBackBufferWidth = UserPrefs.Settings.WindowWidth;
+            graphics.PreferredBackBufferHeight = Globals.WindowHeight;
+            graphics.PreferredBackBufferWidth = Globals.WindowWidth;
             graphics.ApplyChanges();
 
             base.Initialize();
@@ -59,7 +60,7 @@ namespace RythmGame
 
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
-                Exit();
+                Environment.Exit(0);
             }
 
             base.Update(gameTime);

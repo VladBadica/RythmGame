@@ -56,15 +56,15 @@ namespace RythmGame.GamePlay
             trackBall = new TrackBall();
             map = new Map();
             performanceTracker = new PerformanceTracker();
-            comboHitInfoLabels = new LabelListOverflow(new Vector2(UserPrefs.Settings.WindowWidth / 2 - 30, UserPrefs.Settings.WindowHeight / 2), 2000);
-            line1 = new Step() { Rectangle = new Rectangle(UserPrefs.Settings.WindowWidth / 4, 0, 1, UserPrefs.Settings.WindowHeight) };
-            line2 = new Step() { Rectangle = new Rectangle(UserPrefs.Settings.WindowWidth / 2, 0, 1, UserPrefs.Settings.WindowHeight) };
-            line3 = new Step() { Rectangle = new Rectangle(UserPrefs.Settings.WindowWidth / 2 + UserPrefs.Settings.WindowWidth / 4, 0, 1, UserPrefs.Settings.WindowHeight) };
+            comboHitInfoLabels = new LabelListOverflow(new Vector2(Globals.WindowWidth / 2 - 30, Globals.WindowHeight / 2), 2000);
+            line1 = new Step() { Rectangle = new Rectangle(Globals.WindowWidth / 4, 0, 1, Globals.WindowHeight) };
+            line2 = new Step() { Rectangle = new Rectangle(Globals.WindowWidth / 2, 0, 1, Globals.WindowHeight) };
+            line3 = new Step() { Rectangle = new Rectangle(Globals.WindowWidth / 2 + Globals.WindowWidth / 4, 0, 1, Globals.WindowHeight) };
 
             scoreLabel = new Label("Score: 0", new Vector2(0, 0));
             accuracyLabel = new Label("Acc: 0%", new Vector2(0, 30));
-            timerLabel = new Label("0", new Vector2(UserPrefs.Settings.WindowWidth / 2 - 15, UserPrefs.Settings.WindowHeight / 2 - 15));
-            endGameLabel = new Label("You  failed", new Vector2(UserPrefs.Settings.WindowWidth / 2 - 15, UserPrefs.Settings.WindowHeight / 2 - 15))
+            timerLabel = new Label("0", new Vector2(Globals.WindowWidth / 2 - 15, Globals.WindowHeight / 2 - 15));
+            endGameLabel = new Label("You  failed", new Vector2(Globals.WindowWidth / 2 - 15, Globals.WindowHeight / 2 - 15))
             {
                 Visible = false
             };
@@ -173,7 +173,7 @@ namespace RythmGame.GamePlay
             trackBall.Update(gameTime);
             comboHitInfoLabels.Update(gameTime);
 
-            if (trackBall.CenterX < 100 || trackBall.CenterX > UserPrefs.Settings.WindowWidth - 100)
+            if (trackBall.CenterX < 100 || trackBall.CenterX > Globals.WindowWidth - 100)
             {
                 TrackFailed();
             }

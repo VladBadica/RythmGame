@@ -35,8 +35,8 @@ namespace RythmGame.GameObjects
             direction = DirectionEnum.stop;
             Rectangle.Width = 32;
             Rectangle.Height = 32;
-            Rectangle.X = UserPrefs.Settings.WindowWidth / 2 - Rectangle.Width / 2;
-            Rectangle.Y = UserPrefs.Settings.WindowHeight - Rectangle.Height - 50;
+            Rectangle.X = Globals.WindowWidth / 2 - Rectangle.Width / 2;
+            Rectangle.Y = Globals.WindowHeight - Rectangle.Height - 50;
             speed = 3;
             movementDelayTime = 4;
         }

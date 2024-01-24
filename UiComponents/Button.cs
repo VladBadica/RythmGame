@@ -11,30 +11,7 @@ namespace RythmGame.UiComponents
         public float Rotation;
         public Vector2 OriginVector;
 
-        private Rectangle rectangle;
-        public Rectangle Rectangle
-        {
-            get => rectangle;
-            set => rectangle = value;
-        }
-        public Vector2 Position
-        {
-            get => new Vector2(rectangle.X, rectangle.Y);
-            set
-            {
-                rectangle.X = (int)value.X;
-                rectangle.Y = (int)value.Y;
-            }
-        }
-        public Vector2 Size
-        {
-            get => rectangle.Size.ToVector2();
-            set
-            {
-                rectangle.Width = (int)value.X;
-                rectangle.Height = (int)value.Y;
-            }
-        }
+        public Rectangle Rectangle;
 
         private Color color;
         private const int MaxColorAlpha = 255;
@@ -47,11 +24,10 @@ namespace RythmGame.UiComponents
 
         public event EventHandler Click;
 
-        public Button(Texture2D texture, Vector2 position, Vector2 size)
+        public Button(Texture2D texture, Rectangle rectangle)
         {
             Texture = texture;
-            Position = position;
-            Size = size;
+            Rectangle = rectangle;
 
             color = new Color(255, 255, 255, 255);
             Enabled = true;
@@ -75,7 +51,7 @@ namespace RythmGame.UiComponents
             var mouseRectangle =
                 new Rectangle(InputHandler.CurrentMouseState.X, InputHandler.CurrentMouseState.Y, 1, 1);
 
-            if (mouseRectangle.Intersects(rectangle))
+            if (mouseRectangle.Intersects(Rectangle))
             {
                 if (InputHandler.LeftClick()) Click?.Invoke(null, null);
                 UpdateColorAlpha();
@@ -98,8 +74,8 @@ namespace RythmGame.UiComponents
 
 
             if (Rotation == 0.0f)
-                spriteBatch.Draw(Texture, rectangle, color);
-            else spriteBatch.Draw(Texture, rectangle, null, color, Rotation,
+                spriteBatch.Draw(Texture, Rectangle, color);
+            else spriteBatch.Draw(Texture, Rectangle, null, color, Rotation,
                 OriginVector, SpriteEffects.None, 0);
         }
     }

@@ -26,6 +26,16 @@ namespace RythmGame.Utils
         {
             return CurrentKeyboardState.IsKeyDown(key) && !LastKeyboardState.IsKeyDown(key);
         }
+        public static bool IsAnyKeyPressed(Keys[] keys)
+        {
+            bool pressed = false;
+            foreach(var key in keys)
+            {
+               pressed = pressed || IsKeyPressed(key);
+            }
+
+            return pressed;
+        }
 
         public static bool LeftClick()
         {
