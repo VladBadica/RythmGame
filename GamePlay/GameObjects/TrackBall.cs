@@ -37,8 +37,8 @@ namespace RythmGame.GameObjects
             Rectangle.Height = 32;
             Rectangle.X = Globals.WindowWidth / 2 - Rectangle.Width / 2;
             Rectangle.Y = Globals.WindowHeight - Rectangle.Height - 50;
-            speed = 3;
-            movementDelayTime = 4;
+            speed = 4;
+            movementDelayTime = 3;
         }
 
         public void ChangeDirection()
