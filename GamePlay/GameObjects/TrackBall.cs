@@ -16,29 +16,33 @@ namespace RythmGame.GameObjects
         private bool running;
         private Texture2D texture;
         private DirectionEnum direction;
-        private int speed;
-        public Rectangle Rectangle;
+        private float speed;
+        private Vector2 position;
+        private Vector2 size;
         public int CenterX
         {
             get
             {
-                return Rectangle.X + Rectangle.Width / 2;
+                return (int)position.X + (int)size.X / 2;
+            }
+        }
+        public Rectangle Rectangle
+        {
+            get
+            {
+                return new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
             }
         }
 
-        private double elapsedMovementTime;
-        private double movementDelayTime;
-
-        public TrackBall()
+        public TrackBall(float speed = 1f)
         {
             texture = AssetManager.GetTexture("trackBall");
             direction = DirectionEnum.stop;
-            Rectangle.Width = 32;
-            Rectangle.Height = 32;
-            Rectangle.X = Globals.WindowWidth / 2 - Rectangle.Width / 2;
-            Rectangle.Y = Globals.WindowHeight - Rectangle.Height - 50;
-            speed = 4;
-            movementDelayTime = 3;
+            size.X = 32;
+            size.Y = 32;
+            position.X = Globals.WindowWidth / 2 - size.X / 2;
+            position.Y = Globals.WindowHeight - size.Y - 50;
+            this.speed = speed;
         }
 
         public void ChangeDirection()
@@ -77,14 +81,7 @@ namespace RythmGame.GameObjects
                 return;
             }
 
-            elapsedMovementTime += gameTime.ElapsedGameTime.TotalMilliseconds;
-            if (elapsedMovementTime < movementDelayTime)
-            {
-                return;
-            }
-
-            Rectangle.X += (int)direction * speed;
-            elapsedMovementTime = 0;
+            position.X += (int)direction * speed;
         }
     }
 }
