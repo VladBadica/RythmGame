@@ -6,6 +6,7 @@ namespace RythmGame.Utils
         public enum GAME_STATE {
             MAIN_MENU = 0,
             PLAYING = 1,
+            SELECTION_SCREEN = 2
         }
 
         public static int WindowWidth = 1024;

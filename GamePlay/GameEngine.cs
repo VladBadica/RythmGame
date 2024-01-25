@@ -9,14 +9,15 @@ namespace RythmGame.GamePlay
     public class GameEngine
     {
         private TrackEngine trackEngine;
-        private string[] availableMaps;
         public MainMenu mainMenu;
+        public SelectionScreen selectionScreen;
 
         public GameEngine()
         {
-            availableMaps = MapLoader.GetAllMaps();
             mainMenu = new MainMenu();
-            mainMenu.StartPlaying += (object sender, EventArgs args) => { trackEngine.InitGame(); };
+            //mainMenu.StartPlaying += (object sender, EventArgs args) => { trackEngine.InitGame(); };
+
+            selectionScreen = new SelectionScreen();
 
             trackEngine = new TrackEngine("gods");
         }
@@ -28,6 +29,11 @@ namespace RythmGame.GamePlay
                 case Globals.GAME_STATE.PLAYING:
                     {
                         trackEngine.Draw(spriteBatch);
+                        break;
+                    }
+                case Globals.GAME_STATE.SELECTION_SCREEN:
+                    {
+                        selectionScreen.Draw(spriteBatch);
                         break;
                     }
                 case Globals.GAME_STATE.MAIN_MENU:
@@ -45,6 +51,11 @@ namespace RythmGame.GamePlay
                 case Globals.GAME_STATE.PLAYING:
                     {
                         trackEngine.Update(gameTime);
+                        break;
+                    }
+                case Globals.GAME_STATE.SELECTION_SCREEN:
+                    {
+                        selectionScreen.Update(gameTime);
                         break;
                     }
                 case Globals.GAME_STATE.MAIN_MENU:

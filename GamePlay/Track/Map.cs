@@ -3,11 +3,15 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using RythmGame.GameObjects;
 using RythmGame.Utils;
+using Microsoft.Xna.Framework.Media;
 
 namespace RythmGame.GamePlay.Track
 {
     public class Map
     {
+        public string MapName;
+        public string SongFile;
+        public Song Song;
         private List<Step> steps;
 
         public Map()

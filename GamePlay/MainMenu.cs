@@ -39,7 +39,7 @@ namespace RythmGame.GamePlay
                 && (trackBall.CenterX > playLabel.Position.X && trackBall.CenterX < playLabel.Position.X + playLabel.Size.X)) 
             {
                 StartPlaying?.Invoke(this, null);
-                Globals.GameState = Globals.GAME_STATE.PLAYING;
+                Globals.GameState = Globals.GAME_STATE.SELECTION_SCREEN;
             }
             if (InputHandler.IsAnyKeyPressed(new[] { Keys.Space, UserPrefs.Settings.LeftActionKey, UserPrefs.Settings.RightActionKey })
                 && (trackBall.CenterX > exitLabel.Position.X && trackBall.CenterX < exitLabel.Position.X + exitLabel.Size.X))
