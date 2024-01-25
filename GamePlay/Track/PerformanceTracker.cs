@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RythmGame.GamePlay
+namespace RythmGame.GamePlay.Track
 {
     public class PerformanceTracker
     {
@@ -17,8 +17,12 @@ namespace RythmGame.GamePlay
             {
                 float x = 0;
                 accuracyList.ForEach(acc => x += acc);
+                if(accuracyList.Count == 0)
+                {
+                    return "0.00";
+                }
 
-                return "Acc: " + (x / accuracyList.Count).ToString("0.00") + "%";
+                return (x / accuracyList.Count).ToString("0.00");
             }
         }
 
@@ -40,7 +44,7 @@ namespace RythmGame.GamePlay
                 accuracyList.Add(100);
                 perfectCombo++;
             }
-            else if(value > 50)
+            else if (value > 50)
             {
                 accuracyList.Add(66);
                 perfectCombo = 0;
@@ -54,11 +58,11 @@ namespace RythmGame.GamePlay
 
         public int GetLastHitScore()
         {
-            switch (accuracyList.Last()) 
-            { 
+            switch (accuracyList.Last())
+            {
                 case 100: return 300 * perfectCombo;
                 case 66: return 100;
-                case 30: 
+                case 30:
                 default: return 50;
             }
         }

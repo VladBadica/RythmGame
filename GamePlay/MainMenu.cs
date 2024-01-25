@@ -18,7 +18,7 @@ namespace RythmGame.GamePlay
 
         public MainMenu()
         {
-            trackBall = new TrackBall();
+            trackBall = new TrackBall(3);
             trackBall.Start();
 
             playLabel = new Label("Play", new Vector2(Globals.WindowWidth / 2 - 60, trackBall.Rectangle.Y - 20));

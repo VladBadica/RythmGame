@@ -50,6 +50,14 @@ namespace RythmGame.UiComponents
             alwaysVisible = true;
             visibilityTime = -1;
         }
+        public Label(string text)
+        {
+            Font = AssetManager.GetSpriteFont("calibri18");
+            Text = text;
+            Visible = true;
+            alwaysVisible = true;
+            visibilityTime = -1;
+        }
 
         public virtual void Draw(SpriteBatch spriteBatch)
         {

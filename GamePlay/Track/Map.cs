@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using RythmGame.GameObjects;
 using RythmGame.Utils;
 
-namespace RythmGame.GamePlay
+namespace RythmGame.GamePlay.Track
 {
     public class Map
     {
