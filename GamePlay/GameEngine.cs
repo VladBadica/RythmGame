@@ -15,11 +15,15 @@ namespace RythmGame.GamePlay
         public GameEngine()
         {
             mainMenu = new MainMenu();
-            //mainMenu.StartPlaying += (object sender, EventArgs args) => { trackEngine.InitGame(); };
 
             selectionScreen = new SelectionScreen();
+            selectionScreen.StartTrack += (object sender, EventArgs args) => {
+                SelectionScreen selected = (SelectionScreen)sender;
+                trackEngine.Map = selected.Maps[selected.CurrentIndex];
+                trackEngine.InitGame();
+            };
 
-            trackEngine = new TrackEngine("gods");
+            trackEngine = new TrackEngine();
         }
 
         public void Draw(SpriteBatch spriteBatch)

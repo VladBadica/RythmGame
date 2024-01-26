@@ -41,7 +41,7 @@ namespace RythmGame.GamePlay.Track
                 endGameLabel.Draw(spriteBatch);
             }
 
-            if (trackEngine.RunCountdown)
+            if (trackEngine.ShowCountdown)
             {
                 timerLabel.Text = trackEngine.TimeToStart.ToString();
                 timerLabel.Draw(spriteBatch);

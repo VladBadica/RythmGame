@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework;
 using RythmGame.GameObjects;
 using RythmGame.Utils;
-using RythmGame.UiComponents;
 
 namespace RythmGame.GamePlay.Track
 {
@@ -10,24 +9,23 @@ namespace RythmGame.GamePlay.Track
     {
         public string SongName;
         public int Score;
-        public bool RunCountdown;
+        public bool ShowCountdown;
         public int TimeToStart;
         public bool Running;
         public bool GameEnded;
         public TrackBall TrackBall;
+        public float TrackBallSpeed = 4;
         public Map Map;
         public TrackEngineUI UI;
 
         public double ElapsedTimeToStart;
         public PerformanceTracker PerformanceTracker;
 
-        public TrackEngine(string SongName)
+        public TrackEngine()
         {
-            this.SongName = SongName;
-            RunCountdown = true;
+            ShowCountdown = true;
             Running = false;
-            TrackBall = new TrackBall();
-            Map = new Map();
+            TrackBall = new TrackBall(TrackBallSpeed);
             PerformanceTracker = new PerformanceTracker();
             UI = new TrackEngineUI();
         }
@@ -71,7 +69,7 @@ namespace RythmGame.GamePlay.Track
             }
             if (TimeToStart <= 0)
             {
-                RunCountdown = false;
+                ShowCountdown = false;
                 StartTrack();
             }
         }
@@ -79,7 +77,7 @@ namespace RythmGame.GamePlay.Track
         private void StartTrack()
         {
             TrackBall.Start();
-            SoundPlayer.PlaySong(SongName);
+            SoundPlayer.PlaySong(Map.SongFile);
         }
 
         //Starts Game and CountdownTimer
@@ -89,7 +87,7 @@ namespace RythmGame.GamePlay.Track
             ElapsedTimeToStart = 0;
             TimeToStart = 3;
             Running = true;
-            RunCountdown = true;
+            ShowCountdown = true;
             GameEnded = false;
             Map.Reset();
             PerformanceTracker.Reset();
@@ -114,7 +112,7 @@ namespace RythmGame.GamePlay.Track
                 return;
             }
 
-            if (RunCountdown)
+            if (ShowCountdown)
             {
                 UpdateCountDown(gameTime);
                 return;

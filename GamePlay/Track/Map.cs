@@ -11,6 +11,7 @@ namespace RythmGame.GamePlay.Track
     {
         public string MapName;
         public string SongFile;
+        public string Author;
         public Song Song;
         private List<Step> steps;
 
