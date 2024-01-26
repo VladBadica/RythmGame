@@ -46,37 +46,55 @@ namespace RythmGame.UiComponents
 
         public void Update()
         {
-            if (!Enabled) return;
+            if (!Enabled) 
+            {
+                return; 
+            }
 
-            var mouseRectangle =
-                new Rectangle(InputHandler.CurrentMouseState.X, InputHandler.CurrentMouseState.Y, 1, 1);
+            var mouseRectangle = new Rectangle(InputHandler.CurrentMouseState.X, InputHandler.CurrentMouseState.Y, 1, 1);
 
             if (mouseRectangle.Intersects(Rectangle))
             {
-                if (InputHandler.LeftClick()) Click?.Invoke(null, null);
+                if (InputHandler.LeftClick())
+                {
+                    Click?.Invoke(null, null);
+                }
                 UpdateColorAlpha();
             }
             else
+            {
                 RestoreColorAlpha();
+            }
         }
 
         private void UpdateColorAlpha()
         {
-            if (color.A == MaxColorAlpha) shouldAlphaIncrement = false;
-            if (color.A == MinColorAlpha) shouldAlphaIncrement = true;
-            if (shouldAlphaIncrement) color.A += AlphaIncrementer;
-            else color.A -= AlphaIncrementer;
+            if (color.A == MaxColorAlpha)
+            { 
+                shouldAlphaIncrement = false; 
+            }
+            if (color.A == MinColorAlpha)
+            {
+                shouldAlphaIncrement = true;
+            }
+            if (shouldAlphaIncrement)
+            {
+                color.A += AlphaIncrementer;
+            }
+            else
+            {
+                color.A -= AlphaIncrementer;
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (!Visible) return;
-
-
-            if (Rotation == 0.0f)
-                spriteBatch.Draw(Texture, Rectangle, color);
-            else spriteBatch.Draw(Texture, Rectangle, null, color, Rotation,
-                OriginVector, SpriteEffects.None, 0);
+            if (!Visible) 
+            {
+                return;
+            }
+                
+            spriteBatch.Draw(Texture, Rectangle, null, color, Rotation, OriginVector, SpriteEffects.None, 0);
         }
     }
 }

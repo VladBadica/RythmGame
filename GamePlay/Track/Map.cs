@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using RythmGame.GameObjects;
 using RythmGame.Utils;
 using Microsoft.Xna.Framework.Media;
 
@@ -12,33 +11,35 @@ namespace RythmGame.GamePlay.Track
         public string MapName;
         public string SongFile;
         public string Author;
+        public string StepTextureString = "stepLine";
+        public Texture2D StepTexture;
         public Song Song;
-        private List<Step> steps;
+        public List<Rectangle> StepsTemplate;
+        private List<Rectangle> steps;
 
         public Map()
         {
-            steps = new List<Step>();
+            steps = new List<Rectangle>();
+            StepTexture = AssetManager.GetTexture(StepTextureString);
         }
 
-        public Step CurrentStep => steps[0];
+        public Rectangle CurrentStep => steps[0];
+
         private void AddStep(int posX)
         {
-            int posY = steps.Count == 0 ? Globals.WindowHeight - 32 - 50 : steps[steps.Count - 1].Rectangle.Y - 32;
-            steps.Add(new Step()
-            {
-                Rectangle = new Rectangle(posX, posY, 3, 32)
-            });
+            int posY = steps.Count == 0 ? Globals.WindowHeight - 32 - 50 : steps[steps.Count - 1].Y - 32;
+            steps.Add(new Rectangle(posX, posY, 3, 32));
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            steps.ForEach(step => step.Draw(spriteBatch));
+            steps.ForEach(step => spriteBatch.Draw(StepTexture, step, Color.White));
         }
 
         public void Reset()
         {
-            steps.Clear();
-            for (int i = 0; i < 3; i++)
+            steps = new List<Rectangle>(StepsTemplate);
+            /*for (int i = 0; i < 3; i++)
             {
                 AddStep(420);
                 AddStep(Globals.WindowWidth - 420);
@@ -66,13 +67,18 @@ namespace RythmGame.GamePlay.Track
             {
                 AddStep(450);
                 AddStep(Globals.WindowWidth - 450);
-            }
+            }*/
         }
 
         public void NextStep()
         {
             steps.RemoveAt(0);
-            steps.ForEach(step => step.Rectangle.Y += 32);
+            for (int i = 0; i < steps.Count; i++)
+            {
+                Rectangle newStep = steps[i];
+                newStep.Y += 32;
+                steps[i] = newStep;
+            }
         }
     }
 }

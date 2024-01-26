@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
-using RythmGame.GameObjects;
 using RythmGame.Utils;
 
 namespace RythmGame.GamePlay.Track
@@ -40,9 +39,9 @@ namespace RythmGame.GamePlay.Track
 
         private void HandleActionKeysPressed()
         {
-            if (TrackBall.Rectangle.Intersects(Map.CurrentStep.Rectangle))
+            if (TrackBall.Rectangle.Intersects(Map.CurrentStep))
             {
-                PerformanceTracker.AddHitAccuracy(TrackBall.Rectangle.Width, TrackBall.CenterX, Map.CurrentStep.CenterX);
+                PerformanceTracker.AddHitAccuracy(TrackBall.Rectangle.Width, TrackBall.CenterX, Map.CurrentStep.Center.X);
                 Score += PerformanceTracker.GetLastHitScore();
 
                 Map.NextStep();
@@ -91,6 +90,7 @@ namespace RythmGame.GamePlay.Track
             ShowCountdown = true;
             GameEnded = false;
             Map.Reset();
+            TrackBall.Reset();
             PerformanceTracker.Reset();
             UI.Reset();
         }

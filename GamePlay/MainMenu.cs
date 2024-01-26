@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using RythmGame.GameObjects;
+using RythmGame.GamePlay.Track;
 using RythmGame.UiComponents;
 using RythmGame.Utils;
 using System;

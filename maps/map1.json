@@ -1,5 +1,43 @@
 {
-  "mapName": "Gods",
+  "mapName": "Gods AHAH",
   "songFile": "gods",
-  "author":  "Vlad Badica"
+  "author": "Vlad Badica",
+  "stepsTemplate": [
+    {
+      "x": 420,
+      "y": 518,
+      "width": 3,
+      "height": 32
+    },
+    {
+      "x": 604,
+      "y": 486,
+      "width": 3,
+      "height": 32
+    },
+    {
+      "x": 420,
+      "y": 454,
+      "width": 3,
+      "height": 32
+    },
+    {
+      "x": 604,
+      "y": 422,
+      "width": 3,
+      "height": 32
+    },
+    {
+      "x": 420,
+      "y": 390,
+      "width": 3,
+      "height": 32
+    },
+    {
+      "x": 604,
+      "y": 358,
+      "width": 3,
+      "height": 32
+    }
+  ]
 }

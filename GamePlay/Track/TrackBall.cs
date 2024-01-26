@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using RythmGame.Utils;
 
-namespace RythmGame.GameObjects
+namespace RythmGame.GamePlay.Track
 {
     public class TrackBall
     {
@@ -49,7 +49,7 @@ namespace RythmGame.GameObjects
         {
             if (direction == DirectionEnum.left)
             {
-                direction = DirectionEnum.right; 
+                direction = DirectionEnum.right;
             }
             else if (direction == DirectionEnum.right)
             {
@@ -60,6 +60,12 @@ namespace RythmGame.GameObjects
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(texture, Rectangle, Color.White);
+        }
+
+        public void Reset()
+        {
+            position.X = Globals.WindowWidth / 2 - size.X / 2;
+            position.Y = Globals.WindowHeight - size.Y - 50;
         }
 
         public void Start()
@@ -76,7 +82,7 @@ namespace RythmGame.GameObjects
 
         public void Update(GameTime gameTime)
         {
-            if(!running)
+            if (!running)
             {
                 return;
             }
