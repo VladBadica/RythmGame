@@ -40,9 +40,9 @@ namespace RythmGame.GamePlay
             mapName = new Label("Map Name: " + Maps[CurrentIndex].MapName);
             mapName.Position = new Vector2(mapSelectionRectangle.X + mapSelectionRectangle.Width / 2 - mapName.Size.X / 2, mapSelectionRectangle.Y + 10);
             mapDuration = new Label("Duration: " + Maps[CurrentIndex].Song.Duration.ToString(@"mm\:ss"));
-            mapDuration.Position = new Vector2(mapSelectionRectangle.X + mapSelectionRectangle.Width / 2 - mapName.Size.X / 2, mapName.Position.Y + mapName.Size.Y);
+            mapDuration.Position = new Vector2(mapSelectionRectangle.X + mapSelectionRectangle.Width / 2 - mapDuration.Size.X / 2, mapName.Position.Y + mapName.Size.Y);
             mapAuthor = new Label("Made By: " + Maps[CurrentIndex].Author);
-            mapAuthor.Position = new Vector2(mapSelectionRectangle.X + mapSelectionRectangle.Width / 2 - mapDuration.Size.X / 2, mapDuration.Position.Y + mapDuration.Size.Y);
+            mapAuthor.Position = new Vector2(mapSelectionRectangle.X + mapSelectionRectangle.Width / 2 - mapAuthor.Size.X / 2, mapDuration.Position.Y + mapDuration.Size.Y);
 
             mapSelectionTextureLeft = AssetManager.GetTexture("mapSelectionRectangle");
             mapSelectionRectangleLeft = new Rectangle(Globals.WindowWidth / 5 - mapSelectionTextureLeft.Width / 4, Globals.WindowHeight / 2 - mapSelectionTextureLeft.Height / 4, mapSelectionTextureLeft.Width / 2, mapSelectionTextureLeft.Height / 2);
@@ -76,9 +76,9 @@ namespace RythmGame.GamePlay
             mapName.Text = "Map Name: " + Maps[CurrentIndex].MapName;
             mapName.Position = new Vector2(mapSelectionRectangle.X + mapSelectionRectangle.Width / 2 - mapName.Size.X / 2, mapSelectionRectangle.Y + 10);
             mapDuration.Text = "Duration: " + Maps[CurrentIndex].Song.Duration.ToString(@"mm\:ss");
-            mapDuration.Position = new Vector2(mapSelectionRectangle.X + mapSelectionRectangle.Width / 2 - mapName.Size.X / 2, mapName.Position.Y + mapName.Size.Y);
+            mapDuration.Position = new Vector2(mapSelectionRectangle.X + mapSelectionRectangle.Width / 2 - mapDuration.Size.X / 2, mapName.Position.Y + mapName.Size.Y);
             mapAuthor.Text = "Made By: " + Maps[CurrentIndex].Author;
-            mapAuthor.Position = new Vector2(mapSelectionRectangle.X + mapSelectionRectangle.Width / 2 - mapDuration.Size.X / 2, mapDuration.Position.Y + mapDuration.Size.Y);
+            mapAuthor.Position = new Vector2(mapSelectionRectangle.X + mapSelectionRectangle.Width / 2 - mapAuthor.Size.X / 2, mapDuration.Position.Y + mapDuration.Size.Y);
 
             mapName.Draw(spriteBatch);
             mapDuration.Draw(spriteBatch);

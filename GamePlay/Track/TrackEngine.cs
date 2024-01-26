@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using RythmGame.GameObjects;
 using RythmGame.Utils;
@@ -67,7 +68,7 @@ namespace RythmGame.GamePlay.Track
                     ElapsedTimeToStart = 0;
                 }
             }
-            if (TimeToStart <= 0)
+            else
             {
                 ShowCountdown = false;
                 StartTrack();
@@ -80,9 +81,9 @@ namespace RythmGame.GamePlay.Track
             SoundPlayer.PlaySong(Map.SongFile);
         }
 
-        //Starts Game and CountdownTimer
         public void InitGame()
         {
+            SoundPlayer.StopSong();
             Score = 0;
             ElapsedTimeToStart = 0;
             TimeToStart = 3;
@@ -107,6 +108,12 @@ namespace RythmGame.GamePlay.Track
         public void Update(GameTime gameTime)
         {
             UI.Update(this, gameTime);
+
+            if (InputHandler.IsKeyPressed(Keys.R))
+            {
+                InitGame();
+            }
+
             if (!Running)
             {
                 return;
@@ -129,7 +136,6 @@ namespace RythmGame.GamePlay.Track
             {
                 HandleActionKeysPressed();
             }
-
         }
     }
 }
