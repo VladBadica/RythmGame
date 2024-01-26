@@ -1,13 +1,13 @@
 ﻿
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
-using Newtonsoft.Json;
 using RythmGame.UiComponents;
 using RythmGame.Utils;
+using RythmGame.GamePlay.Track;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
-using RythmGame.GamePlay.Track;
-using Microsoft.Xna.Framework.Input;
 using System;
 
 namespace RythmGame.GamePlay
@@ -61,7 +61,7 @@ namespace RythmGame.GamePlay
                 map.Song = AssetManager.GetSong(map.SongFile);
                 maps.Add(map);
 
-                mapFiles[i] = mapFiles[i].Split("\\")[mapFiles[i].Split("\\").Length - 1].Split('.')[0];
+                mapFiles[i] = mapFiles[i].Split("\\")[^1].Split('.')[0];
             }
 
             return maps;
@@ -87,7 +87,7 @@ namespace RythmGame.GamePlay
 
         public void Update(GameTime gameTime)
         {
-            if (InputHandler.IsKeyPressed(Keys.Z))
+            if (InputHandler.IsKeyPressed(Keys.Z) || InputHandler.IsKeyPressed(Keys.Left) || InputHandler.IsKeyPressed(Keys.A))
             {
                 if(CurrentIndex != 0)
                 {
@@ -95,7 +95,7 @@ namespace RythmGame.GamePlay
                 }
             }
 
-            if (InputHandler.IsKeyPressed(Keys.X))
+            if (InputHandler.IsKeyPressed(Keys.X) || InputHandler.IsKeyPressed(Keys.Right) || InputHandler.IsKeyPressed(Keys.D))
             {
                 if (CurrentIndex != Maps.Count - 1)
                 {
@@ -103,7 +103,7 @@ namespace RythmGame.GamePlay
                 }
             }
 
-            if (InputHandler.IsKeyPressed(Keys.Space))
+            if (InputHandler.IsKeyPressed(Keys.Space) || InputHandler.IsKeyPressed(Keys.Enter))
             {
                 StartTrack?.Invoke(this, null);
                 Globals.GameState = Globals.GAME_STATE.PLAYING;
