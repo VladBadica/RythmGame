@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using RythmGame.Utils;
+using System;
 
 namespace RythmGame.GamePlay.Track
 {
@@ -13,13 +14,17 @@ namespace RythmGame.GamePlay.Track
         public int TimeToStart;
         public bool Running;
         public bool GameEnded;
+        public bool GamePaused;
         public TrackBall TrackBall;
         public float TrackBallSpeed = 4;
         public Map Map;
         public TrackEngineUI UI;
+        public EndGameUI EndGameUI;
 
         public double ElapsedTimeToStart;
         public PerformanceTracker PerformanceTracker;
+
+        public event EventHandler GoBack;
 
         public TrackEngine()
         {
@@ -28,13 +33,21 @@ namespace RythmGame.GamePlay.Track
             TrackBall = new TrackBall(TrackBallSpeed);
             PerformanceTracker = new PerformanceTracker();
             UI = new TrackEngineUI();
+            EndGameUI = new EndGameUI();
         }
 
         public void Draw(SpriteBatch spriteBatch)
-        {
-            Map.Draw(spriteBatch);
-            TrackBall.Draw(spriteBatch);
-            UI.Draw(this, spriteBatch);
+        {            
+            if (!GameEnded)
+            {
+                Map.Draw(spriteBatch);
+                TrackBall.Draw(spriteBatch);
+                UI.Draw(this, spriteBatch);               
+            }
+            else
+            {
+                EndGameUI.Draw(this, spriteBatch);
+            }
         }
 
         private void HandleActionKeysPressed()
@@ -95,11 +108,26 @@ namespace RythmGame.GamePlay.Track
             UI.Reset();
         }
 
+        private void PauseGame()
+        {
+            GamePaused = true;
+            Running = false;
+            TrackBall.Stop();
+            SoundPlayer.PauseSong();
+        }
+
+        private void ContinueGame()
+        {
+            GamePaused = false;
+            Running = true;
+            TrackBall.Start();
+            SoundPlayer.ContinueSong();
+        }
+
         private void TrackFailed()
         {
             GameEnded = true;
             Running = false;
-            UI.Reset();
 
             SoundPlayer.StopSong();
             SoundPlayer.PlayEffect(SoundPlayer.SoundEffects.TrackFailed);
@@ -109,32 +137,43 @@ namespace RythmGame.GamePlay.Track
         {
             UI.Update(this, gameTime);
 
+            if (InputHandler.IsKeyPressed(Keys.Escape))
+            {
+                if (GamePaused)
+                {
+                    ContinueGame();
+                }
+                else
+                {
+                    PauseGame();
+                }
+            }
+
             if (InputHandler.IsKeyPressed(Keys.R))
             {
                 InitGame();
             }
 
-            if (!Running)
-            {
-                return;
-            }
+            if (Running)
+            {                
+                if (ShowCountdown)
+                {
+                    UpdateCountDown(gameTime);
+                }
+                else
+                {
+                    TrackBall.Update(gameTime);
 
-            if (ShowCountdown)
-            {
-                UpdateCountDown(gameTime);
-                return;
-            }
+                    if (TrackBall.CenterX < 100 || TrackBall.CenterX > Globals.WindowWidth - 100)
+                    {
+                        TrackFailed();
+                    }
 
-            TrackBall.Update(gameTime);
-
-            if (TrackBall.CenterX < 100 || TrackBall.CenterX > Globals.WindowWidth - 100)
-            {
-                TrackFailed();
-            }
-
-            if (InputHandler.IsKeyPressed(UserPrefs.Settings.LeftActionKey) || InputHandler.IsKeyPressed(UserPrefs.Settings.RightActionKey))
-            {
-                HandleActionKeysPressed();
+                    if (InputHandler.IsKeyPressed(UserPrefs.Settings.LeftActionKey) || InputHandler.IsKeyPressed(UserPrefs.Settings.RightActionKey))
+                    {
+                        HandleActionKeysPressed();
+                    }
+                }               
             }
         }
     }

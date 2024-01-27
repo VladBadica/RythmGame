@@ -19,8 +19,10 @@ namespace RythmGame.GamePlay
             trackBall = new TrackBall(3);
             trackBall.Start();
 
-            playLabel = new Label("Play", new Vector2(Globals.WindowWidth / 2 - 60, trackBall.Rectangle.Y - 20));
-            exitLabel = new Label("Exit", new Vector2(Globals.WindowWidth / 2 + 60, trackBall.Rectangle.Y - 20));
+            playLabel = new Label("Play");
+            playLabel.Position = new Vector2(Globals.WindowWidth / 2 - 60, trackBall.Rectangle.Y - 20);
+            exitLabel = new Label("Exit");
+            exitLabel.Position = new Vector2(Globals.WindowWidth / 2 + 60, trackBall.Rectangle.Y - 20);
 
         }
 
@@ -31,8 +33,18 @@ namespace RythmGame.GamePlay
             trackBall.Draw(spriteBatch);
         }
 
+        public void Initialize()
+        {
+            trackBall.Reset();
+        }
+
         public void Update(GameTime gameTime)
         {
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
+                Environment.Exit(0);
+            }
+
             if (InputHandler.IsAnyKeyPressed(new[] { Keys.Space, UserPrefs.Settings.LeftActionKey, UserPrefs.Settings.RightActionKey })
                 && (trackBall.CenterX > playLabel.Position.X && trackBall.CenterX < playLabel.Position.X + playLabel.Size.X)) 
             {

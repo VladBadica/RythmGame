@@ -58,11 +58,6 @@ namespace RythmGame
             InputHandler.Update();
             gameEngine.Update(gameTime);
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-            {
-                Environment.Exit(0);
-            }
-
             base.Update(gameTime);
         }
     }

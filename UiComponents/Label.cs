@@ -9,6 +9,7 @@ namespace RythmGame.UiComponents
     {
         public string Text;
         public Vector2 Position;
+        public float Scale;
 
         public bool Visible;
 
@@ -39,17 +40,9 @@ namespace RythmGame.UiComponents
             Position = position;
             alwaysVisible = false;
             Show(visibilityTime);
+            Scale = 1f;
         }
 
-        public Label(string text, Vector2 position)
-        {
-            Font = AssetManager.GetSpriteFont("calibri18");
-            Text = text;
-            Position = position;
-            Visible = true;
-            alwaysVisible = true;
-            visibilityTime = -1;
-        }
         public Label(string text)
         {
             Font = AssetManager.GetSpriteFont("calibri18");
@@ -57,6 +50,7 @@ namespace RythmGame.UiComponents
             Visible = true;
             alwaysVisible = true;
             visibilityTime = -1;
+            Scale = 1f;
         }
 
         public virtual void Draw(SpriteBatch spriteBatch)
@@ -66,7 +60,7 @@ namespace RythmGame.UiComponents
                 return;
             }
 
-            spriteBatch.DrawString(Font, Text, Position, color);
+            spriteBatch.DrawString(Font, Text, Position, color, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
         }
 
         public void Show(double timeVisible)

@@ -18,6 +18,11 @@ namespace RythmGame.Utils
         private static Dictionary<SoundEffects, SoundEffect> soundEffects;
         private static Dictionary<string, Song> songs;
 
+        public static void ContinueSong()
+        {
+            MediaPlayer.Resume();
+        }
+
         public static void LoadContent()
         {
             soundEffects = new Dictionary<SoundEffects, SoundEffect>();
@@ -33,6 +38,11 @@ namespace RythmGame.Utils
 
             MediaPlayer.IsRepeating = false;
             MediaPlayer.Volume = masterVolume * musicVolume;
+        }
+
+        public static void PauseSong()
+        {
+            MediaPlayer.Pause();
         }
 
         public static void PlayEffect(SoundEffects effectName)

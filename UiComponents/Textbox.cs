@@ -52,8 +52,9 @@ namespace RythmGame.UiComponents
             }
         }
 
-        public Textbox(string text, Rectangle rectangle) : base(string.Empty, new Vector2(rectangle.X + Spacing.X, rectangle.Y + Spacing.Y))
+        public Textbox(string text, Rectangle rectangle) : base(string.Empty)
         {
+            Position = new Vector2(rectangle.X + Spacing.X, rectangle.Y + Spacing.Y);
             texture = AssetManager.GetTexture("textbox");
             IsFocused = false;
             this.rectangle = rectangle;

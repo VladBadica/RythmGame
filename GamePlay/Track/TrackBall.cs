@@ -37,7 +37,7 @@ namespace RythmGame.GamePlay.Track
         public TrackBall(float speed = 1f)
         {
             texture = AssetManager.GetTexture("trackBall");
-            direction = DirectionEnum.stop;
+            direction = DirectionEnum.left;
             size.X = 32;
             size.Y = 32;
             position.X = Globals.WindowWidth / 2 - size.X / 2;
@@ -66,18 +66,17 @@ namespace RythmGame.GamePlay.Track
         {
             position.X = Globals.WindowWidth / 2 - size.X / 2;
             position.Y = Globals.WindowHeight - size.Y - 50;
+            direction = DirectionEnum.left;
         }
 
         public void Start()
         {
             running = true;
-            direction = DirectionEnum.left;
         }
 
         public void Stop()
         {
             running = false;
-            direction = DirectionEnum.stop;
         }
 
         public void Update(GameTime gameTime)

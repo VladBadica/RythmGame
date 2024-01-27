@@ -22,17 +22,23 @@ namespace RythmGame.GamePlay
                 trackEngine.Map = selected.Maps[selected.CurrentIndex];
                 trackEngine.InitGame();
             };
+            selectionScreen.GoBack += (object sender, EventArgs args) => {
+                mainMenu.Initialize();
+            };
 
             trackEngine = new TrackEngine();
+            trackEngine.GoBack += (object sender, EventArgs args) => {
+                selectionScreen.Initialize();
+            };
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             switch (Globals.GameState)
             {
-                case Globals.GAME_STATE.PLAYING:
+                case Globals.GAME_STATE.MAIN_MENU:
                     {
-                        trackEngine.Draw(spriteBatch);
+                        mainMenu.Draw(spriteBatch);
                         break;
                     }
                 case Globals.GAME_STATE.SELECTION_SCREEN:
@@ -40,21 +46,23 @@ namespace RythmGame.GamePlay
                         selectionScreen.Draw(spriteBatch);
                         break;
                     }
-                case Globals.GAME_STATE.MAIN_MENU:
-                default:
+                case Globals.GAME_STATE.PLAYING:
                     {
-                        mainMenu.Draw(spriteBatch);
+                        trackEngine.Draw(spriteBatch);
                         break;
                     }
+                default: break;
+                   
             }
         }
 
         public void Update(GameTime gameTime)
         {
-            switch (Globals.GameState) {
-                case Globals.GAME_STATE.PLAYING:
+            switch (Globals.GameState) 
+            {
+                case Globals.GAME_STATE.MAIN_MENU:
                     {
-                        trackEngine.Update(gameTime);
+                        mainMenu.Update(gameTime);
                         break;
                     }
                 case Globals.GAME_STATE.SELECTION_SCREEN:
@@ -62,14 +70,13 @@ namespace RythmGame.GamePlay
                         selectionScreen.Update(gameTime);
                         break;
                     }
-                case Globals.GAME_STATE.MAIN_MENU:
-                default:
+                case Globals.GAME_STATE.PLAYING:
                     {
-                        mainMenu.Update(gameTime);
+                        trackEngine.Update(gameTime);
                         break;
-                    }
-            }
-           
+                    }                
+                default: break;                    
+            }           
         }
     }
 }
