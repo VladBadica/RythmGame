@@ -108,7 +108,7 @@ namespace RythmGame.GamePlay
 
             if (InputHandler.IsKeyPressed(Keys.Z) || InputHandler.IsKeyPressed(Keys.Left) || InputHandler.IsKeyPressed(Keys.A))
             {
-                if(CurrentIndex != 0)
+                if (CurrentIndex != 0)
                 {
                     CurrentIndex--;
                 }

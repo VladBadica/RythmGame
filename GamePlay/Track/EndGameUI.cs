@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using RythmGame.UiComponents;
 using RythmGame.Utils;
+using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace RythmGame.GamePlay.Track
 {

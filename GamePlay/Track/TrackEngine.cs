@@ -98,7 +98,7 @@ namespace RythmGame.GamePlay.Track
             SoundPlayer.StopSong();
             Score = 0;
             ElapsedTimeToStart = 0;
-            TimeToStart = 3;
+            TimeToStart = 1;
             Running = true;
             ShowCountdown = true;
             GameEnded = false;
@@ -139,7 +139,12 @@ namespace RythmGame.GamePlay.Track
 
             if (InputHandler.IsKeyPressed(Keys.Escape))
             {
-                if (GamePaused)
+                if (GameEnded)
+                {
+                    GoBack?.Invoke(this, null);
+                    Globals.GameState = Globals.GAME_STATE.SELECTION_SCREEN;
+                }
+                else if (GamePaused)
                 {
                     ContinueGame();
                 }
@@ -151,7 +156,10 @@ namespace RythmGame.GamePlay.Track
 
             if (InputHandler.IsKeyPressed(Keys.R))
             {
-                InitGame();
+                if(!GamePaused)
+                { 
+                    InitGame();
+                }
             }
 
             if (Running)

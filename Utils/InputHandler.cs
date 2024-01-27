@@ -21,6 +21,7 @@ namespace RythmGame.Utils
         {
             return CurrentKeyboardState.IsKeyDown(key) && !LastKeyboardState.IsKeyDown(key);
         }
+
         public static bool IsAnyKeyPressed(Keys[] keys)
         {
             bool pressed = false;

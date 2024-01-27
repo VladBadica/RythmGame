@@ -51,8 +51,7 @@ namespace RythmGame.GamePlay
                         trackEngine.Draw(spriteBatch);
                         break;
                     }
-                default: break;
-                   
+                default: break;                   
             }
         }
 
