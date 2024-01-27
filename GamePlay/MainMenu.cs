@@ -40,7 +40,7 @@ namespace RythmGame.GamePlay
 
         public void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (InputHandler.IsKeyPressed(Keys.Escape))
             {
                 Environment.Exit(0);
             }

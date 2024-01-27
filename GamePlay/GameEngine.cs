@@ -74,9 +74,9 @@ namespace RythmGame.GamePlay
                     {
                         trackEngine.Update(gameTime);
                         break;
-                    }                
+                    }
                 default: break;                    
-            }           
+            }
         }
     }
 }

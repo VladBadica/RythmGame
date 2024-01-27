@@ -93,11 +93,11 @@ namespace RythmGame.GamePlay
 
         public void Update(GameTime gameTime)
         {
-            // TODO: Fix bug, pressing escape goes through all game states all the way to closing the app
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (InputHandler.IsKeyPressed(Keys.Escape))
             {
                 GoBack?.Invoke(this, null);
                 Globals.GameState = Globals.GAME_STATE.MAIN_MENU;
+                return;
             }
 
             if (InputHandler.IsKeyPressed(Keys.Space) || InputHandler.IsKeyPressed(Keys.Enter))
