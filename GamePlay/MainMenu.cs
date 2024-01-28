@@ -46,23 +46,23 @@ namespace RythmGame.GamePlay
             }
 
             if (InputHandler.IsAnyKeyPressed(new[] { Keys.Space, UserPrefs.Settings.LeftActionKey, UserPrefs.Settings.RightActionKey })
-                && (trackBall.CenterX > playLabel.Position.X && trackBall.CenterX < playLabel.Position.X + playLabel.Size.X)) 
+                && (trackBall.Rectangle.Center.X > playLabel.Position.X && trackBall.Rectangle.Center.X < playLabel.Position.X + playLabel.Size.X)) 
             {
                 Globals.GameState = Globals.GAME_STATE.SELECTION_SCREEN;
             }
             if (InputHandler.IsAnyKeyPressed(new[] { Keys.Space, UserPrefs.Settings.LeftActionKey, UserPrefs.Settings.RightActionKey })
-                && (trackBall.CenterX > exitLabel.Position.X && trackBall.CenterX < exitLabel.Position.X + exitLabel.Size.X))
+                && (trackBall.Rectangle.Center.X > exitLabel.Position.X && trackBall.Rectangle.Center.X < exitLabel.Position.X + exitLabel.Size.X))
             {
                 Environment.Exit(0);
             }
 
-            trackBall.Update(gameTime);
+            trackBall.Move();
 
-            if (trackBall.CenterX < playLabel.Position.X + playLabel.Size.X / 2)
+            if (trackBall.Rectangle.Center.X < playLabel.Position.X + playLabel.Size.X / 2)
             {
                 trackBall.ChangeDirection();
             }
-            if (trackBall.CenterX > exitLabel.Position.X + exitLabel.Size.X / 2)
+            if (trackBall.Rectangle.Center.X > exitLabel.Position.X + exitLabel.Size.X / 2)
             {
                 trackBall.ChangeDirection();
             }

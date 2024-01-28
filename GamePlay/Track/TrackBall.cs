@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using RythmGame.Utils;
+using System;
 
 namespace RythmGame.GamePlay.Track
 {
@@ -19,13 +20,7 @@ namespace RythmGame.GamePlay.Track
         private float speed;
         private Vector2 position;
         private Vector2 size;
-        public int CenterX
-        {
-            get
-            {
-                return (int)position.X + (int)size.X / 2;
-            }
-        }
+
         public Rectangle Rectangle
         {
             get
@@ -33,6 +28,12 @@ namespace RythmGame.GamePlay.Track
                 return new Rectangle((int)position.X, (int)position.Y, (int)size.X, (int)size.Y);
             }
         }
+
+        public event EventHandler<int> OnCorrectHit;
+        public event EventHandler OnMiss;
+        public event EventHandler OnOutOfBounds;
+        public int ChangeDirectionAt;
+        public bool CurrentStepHit;
 
         public TrackBall(float speed = 1f)
         {
@@ -43,6 +44,7 @@ namespace RythmGame.GamePlay.Track
             position.X = Globals.WindowWidth / 2 - size.X / 2;
             position.Y = Globals.WindowHeight - size.Y - 50;
             this.speed = speed;
+            CurrentStepHit = false;
         }
 
         public void ChangeDirection()
@@ -62,11 +64,18 @@ namespace RythmGame.GamePlay.Track
             spriteBatch.Draw(texture, Rectangle, Color.White);
         }
 
+        public void GetNewChangeDirectionAt(Rectangle currentStep)
+        {
+            ChangeDirectionAt = direction == DirectionEnum.left ? currentStep.X - 1 : currentStep.X + currentStep.Width + 1;
+        }
+
         public void Reset()
         {
             position.X = Globals.WindowWidth / 2 - size.X / 2;
             position.Y = Globals.WindowHeight - size.Y - 50;
             direction = DirectionEnum.left;
+            CurrentStepHit = false;
+            ChangeDirectionAt = 0;
         }
 
         public void Start()
@@ -79,7 +88,63 @@ namespace RythmGame.GamePlay.Track
             running = false;
         }
 
-        public void Update(GameTime gameTime)
+        public void Update(TrackEngine trackEngine, GameTime gameTime)
+        {
+            if (!running)
+            {
+                return;
+            }
+
+            position.X += (int)direction * speed;
+
+            if (InputHandler.IsKeyPressed(UserPrefs.Settings.LeftActionKey) || InputHandler.IsKeyPressed(UserPrefs.Settings.RightActionKey))
+            {
+                if (Rectangle.Intersects(trackEngine.Map.CurrentStep))
+                {
+                    OnCorrectHit?.Invoke(this, trackEngine.Map.CurrentStep.Center.X);
+                    CurrentStepHit = true;
+                }
+                else
+                {
+                    OnMiss?.Invoke(this, null);
+                }
+            }
+
+            if(direction == DirectionEnum.left)
+            {
+                if (Rectangle.X + Rectangle.Width < ChangeDirectionAt)
+                {
+                    if (CurrentStepHit)
+                    {
+                        ChangeDirection();
+                        GetNewChangeDirectionAt(trackEngine.Map.CurrentStep);
+                        CurrentStepHit = false;
+                    }
+                    else
+                    {
+                        OnOutOfBounds?.Invoke(this, null);
+                    }
+                }
+            }
+            else if (direction == DirectionEnum.right)
+            {
+                if (position.X > ChangeDirectionAt)
+                {
+                    if (CurrentStepHit)
+                    {
+                        ChangeDirection();
+                        GetNewChangeDirectionAt(trackEngine.Map.CurrentStep);
+                        CurrentStepHit = false;
+                    }
+                    else
+                    {
+                        OnOutOfBounds?.Invoke(this, null);
+                    }
+                }
+            }
+        }
+
+        public void Move()
         {
             if (!running)
             {

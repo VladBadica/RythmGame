@@ -20,6 +20,7 @@ namespace RythmGame.GamePlay.Track
         public Map Map;
         public TrackEngineUI UI;
         public EndGameUI EndGameUI;
+        public PauseGameUI PauseGameUI;
 
         public double ElapsedTimeToStart;
         public PerformanceTracker PerformanceTracker;
@@ -30,42 +31,49 @@ namespace RythmGame.GamePlay.Track
         {
             ShowCountdown = true;
             Running = false;
-            TrackBall = new TrackBall(TrackBallSpeed);
             PerformanceTracker = new PerformanceTracker();
             UI = new TrackEngineUI();
+            PauseGameUI = new PauseGameUI();
             EndGameUI = new EndGameUI();
+            TrackBall = new TrackBall(TrackBallSpeed);
+
+            TrackBall.OnCorrectHit += (sender, currentStepCenterX) =>
+            {
+                TrackBall senderObj = (TrackBall)sender;
+
+                SoundPlayer.PlayEffect(SoundPlayer.SoundEffects.StepHit);
+
+                PerformanceTracker.AddHitAccuracy(senderObj.Rectangle.Width, senderObj.Rectangle.Center.X, currentStepCenterX);
+                Score += PerformanceTracker.GetLastHitScore();
+                UI.ComboHitInfoLabels.AddLabel(PerformanceTracker.GetLastHitInfoLabel());
+
+                Map.NextStep();
+            };
+            TrackBall.OnMiss += (sender, args) =>
+            {
+                TrackFailed();
+            };
+            TrackBall.OnOutOfBounds += (sender, args) =>
+            {
+                TrackFailed();
+            };
         }
 
         public void Draw(SpriteBatch spriteBatch)
-        {            
+        {
             if (!GameEnded)
             {
                 Map.Draw(spriteBatch);
                 TrackBall.Draw(spriteBatch);
-                UI.Draw(this, spriteBatch);               
+                UI.Draw(this, spriteBatch);
+                if (GamePaused)
+                {
+                    PauseGameUI.Draw(spriteBatch);
+                }
             }
             else
             {
                 EndGameUI.Draw(this, spriteBatch);
-            }
-        }
-
-        private void HandleActionKeysPressed()
-        {
-            if (TrackBall.Rectangle.Intersects(Map.CurrentStep))
-            {
-                PerformanceTracker.AddHitAccuracy(TrackBall.Rectangle.Width, TrackBall.CenterX, Map.CurrentStep.Center.X);
-                Score += PerformanceTracker.GetLastHitScore();
-
-                Map.NextStep();
-
-                SoundPlayer.PlayEffect(SoundPlayer.SoundEffects.StepHit);
-                TrackBall.ChangeDirection();
-                UI.ComboHitInfoLabels.AddLabel(PerformanceTracker.GetLastHitInfoLabel());
-            }
-            else
-            {
-                TrackFailed();
             }
         }
 
@@ -104,6 +112,7 @@ namespace RythmGame.GamePlay.Track
             GameEnded = false;
             Map.Reset();
             TrackBall.Reset();
+            TrackBall.GetNewChangeDirectionAt(Map.CurrentStep);
             PerformanceTracker.Reset();
             UI.Reset();
         }
@@ -154,12 +163,9 @@ namespace RythmGame.GamePlay.Track
                 }
             }
 
-            if (InputHandler.IsKeyPressed(Keys.R))
+            if (InputHandler.IsKeyPressed(Keys.R) && !GamePaused)
             {
-                if(!GamePaused)
-                { 
-                    InitGame();
-                }
+                InitGame();
             }
 
             if (Running)
@@ -170,17 +176,7 @@ namespace RythmGame.GamePlay.Track
                 }
                 else
                 {
-                    TrackBall.Update(gameTime);
-
-                    if (TrackBall.CenterX < 100 || TrackBall.CenterX > Globals.WindowWidth - 100)
-                    {
-                        TrackFailed();
-                    }
-
-                    if (InputHandler.IsKeyPressed(UserPrefs.Settings.LeftActionKey) || InputHandler.IsKeyPressed(UserPrefs.Settings.RightActionKey))
-                    {
-                        HandleActionKeysPressed();
-                    }
+                    TrackBall.Update(this, gameTime);
                 }               
             }
         }
