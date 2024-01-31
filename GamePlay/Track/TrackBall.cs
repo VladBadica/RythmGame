@@ -37,10 +37,10 @@ namespace RythmGame.GamePlay.Track
 
         public TrackBall(float speed = 1f)
         {
-            texture = AssetManager.GetTexture("trackBall");
+            texture = AssetManager.GetTexture("trackBall2");
             direction = DirectionEnum.left;
-            size.X = 32;
-            size.Y = 32;
+            size.X = 48;
+            size.Y = 48;
             position.X = Globals.WindowWidth / 2 - size.X / 2;
             position.Y = Globals.WindowHeight - size.Y - 50;
             this.speed = speed;

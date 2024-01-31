@@ -12,6 +12,7 @@ namespace RythmGame.GamePlay.Track
         public string SongFile;
         public string Author;
         public string StepTextureString = "stepLine";
+        public Texture2D BackgroundTexture;
         public Texture2D StepTexture;
         public Song Song;
         public List<Rectangle> StepsTemplate;
@@ -21,6 +22,7 @@ namespace RythmGame.GamePlay.Track
         {
             steps = new List<Rectangle>();
             StepTexture = AssetManager.GetTexture(StepTextureString);
+            BackgroundTexture = AssetManager.GetTexture("retroBackground");
         }
 
         public Rectangle CurrentStep => steps[0];
@@ -33,6 +35,7 @@ namespace RythmGame.GamePlay.Track
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(BackgroundTexture, new Rectangle(0, 0, Globals.WindowWidth, Globals.WindowHeight), Color.White);
             steps.ForEach(step => spriteBatch.Draw(StepTexture, step, Color.White));
         }
 
@@ -76,7 +79,7 @@ namespace RythmGame.GamePlay.Track
             for (int i = 0; i < steps.Count; i++)
             {
                 Rectangle newStep = steps[i];
-                newStep.Y += 32;
+                newStep.Y += 48;
                 steps[i] = newStep;
             }
         }

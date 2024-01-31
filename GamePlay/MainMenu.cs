@@ -10,6 +10,7 @@ namespace RythmGame.GamePlay
 {
     public class MainMenu
     {
+        private Texture2D background;
         private TrackBall trackBall;
         private Label playLabel;
         private Label exitLabel;
@@ -24,10 +25,12 @@ namespace RythmGame.GamePlay
             exitLabel = new Label("Exit");
             exitLabel.Position = new Vector2(Globals.WindowWidth / 2 + 60, trackBall.Rectangle.Y - 20);
 
+            background = AssetManager.GetTexture("mainMenu");
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(background, new Rectangle(0, 0, background.Width, background.Height), Color.White);
             playLabel.Draw(spriteBatch);
             exitLabel.Draw(spriteBatch);
             trackBall.Draw(spriteBatch);
