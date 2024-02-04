@@ -35,7 +35,7 @@ namespace RythmGame.UiComponents
 
         public Label(string text, Vector2 position, double visibilityTime)
         {
-            Font = AssetManager.GetSpriteFont("calibri18");
+            Font = AssetManager.GetSpriteFont("arial14");
             Text = text;
             Position = position;
             alwaysVisible = false;
@@ -45,7 +45,7 @@ namespace RythmGame.UiComponents
 
         public Label(string text)
         {
-            Font = AssetManager.GetSpriteFont("calibri18");
+            Font = AssetManager.GetSpriteFont("arial14");
             Text = text;
             Visible = true;
             alwaysVisible = true;

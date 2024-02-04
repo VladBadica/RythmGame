@@ -16,29 +16,29 @@ namespace RythmGame.GamePlay.Track
         public EndGameUI()
         {
             trackCompleteLabel = new Label("Track Completed");
-            trackCompleteLabel.Position = new Vector2(Globals.WindowWidth / 2 - trackCompleteLabel.Size.X / 2, 150);
+            trackCompleteLabel.Position = new Vector2(Globals.WindowWidth / 2 - (int)trackCompleteLabel.Size.X / 2, 150);
 
             trackFailedLabel = new Label("Track Failed");
-            trackFailedLabel.Position = new Vector2(Globals.WindowWidth / 2 - trackFailedLabel.Size.X / 2, 150);
+            trackFailedLabel.Position = new Vector2(Globals.WindowWidth / 2 - (int)trackFailedLabel.Size.X / 2, 150);
             
             scoreLabel = new Label("Your Score: 0");
-            scoreLabel.Position = new Vector2(Globals.WindowWidth / 2 - scoreLabel.Size.X / 2, trackFailedLabel.Position.Y + trackFailedLabel.Size.Y + 10);
+            scoreLabel.Position = new Vector2(Globals.WindowWidth / 2 - (int)scoreLabel.Size.X / 2, 170);
              
             accuracyLabel = new Label("Accuracy: 0%");
-            accuracyLabel.Position = new Vector2(Globals.WindowWidth / 2 - accuracyLabel.Size.X / 2, scoreLabel.Position.Y + scoreLabel.Size.Y + 10);
+            accuracyLabel.Position = new Vector2(Globals.WindowWidth / 2 - (int)accuracyLabel.Size.X / 2, 190);
 
             infolabel = new Label("Press \'R\' to try again");
-            infolabel.Position = new Vector2(Globals.WindowWidth / 2 - infolabel.Size.X / 2, Globals.WindowHeight - 30);
+            infolabel.Position = new Vector2(Globals.WindowWidth / 2 - (int)infolabel.Size.X / 2, Globals.WindowHeight - 30);
 
         }
 
         public void Draw(TrackEngine trackEngine, SpriteBatch spriteBatch)
         {
             scoreLabel.Text = $"Your Score: {trackEngine.Score}";
-            scoreLabel.Position = new Vector2(Globals.WindowWidth / 2 - scoreLabel.Size.X / 2, trackFailedLabel.Position.Y + trackFailedLabel.Size.Y + 10);
+            scoreLabel.Position = new Vector2(Globals.WindowWidth / 2 - (int)scoreLabel.Size.X / 2, 170);
 
             accuracyLabel.Text = $"Accuracy: {trackEngine.PerformanceTracker.Accuracy}%";
-            accuracyLabel.Position = new Vector2(Globals.WindowWidth / 2 - accuracyLabel.Size.X / 2, scoreLabel.Position.Y + scoreLabel.Size.Y + 10);
+            accuracyLabel.Position = new Vector2(Globals.WindowWidth / 2 - (int)accuracyLabel.Size.X / 2, 190);
 
             if (trackEngine.LevelCompleted)
             {
@@ -49,7 +49,7 @@ namespace RythmGame.GamePlay.Track
                 trackFailedLabel.Draw(spriteBatch);
             }
             scoreLabel.Draw(spriteBatch);
-            accuracyLabel.Draw(spriteBatch); 
+            accuracyLabel.Draw(spriteBatch);
             infolabel.Draw(spriteBatch);
         }
 

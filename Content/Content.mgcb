@@ -67,6 +67,20 @@
 /processorParam:Quality=Best
 /build:soundEffects/slimeSplash.wav
 
+#begin spriteFonts/arial14.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:spriteFonts/arial14.spritefont
+
+#begin spriteFonts/arial18.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:spriteFonts/arial18.spritefont
+
 #begin spriteFonts/calibri18.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
