@@ -15,6 +15,7 @@ namespace RythmGame.GamePlay.Track
         public bool Running;
         public bool GameEnded;
         public bool GamePaused;
+        public bool LevelCompleted;
         public TrackBall TrackBall;
         public float TrackBallSpeed = 4;
         public Map Map;
@@ -29,6 +30,7 @@ namespace RythmGame.GamePlay.Track
 
         public TrackEngine()
         {
+            LevelCompleted = false;
             ShowCountdown = true;
             Running = false;
             PerformanceTracker = new PerformanceTracker();
@@ -48,6 +50,10 @@ namespace RythmGame.GamePlay.Track
                 UI.ComboHitInfoLabels.AddLabel(PerformanceTracker.GetLastHitInfoLabel());
 
                 Map.NextStep();
+                if (Map.StepsCount == 0)
+                {
+                    TrackFinished();
+                }
             };
             TrackBall.OnMiss += (sender, args) =>
             {
@@ -107,6 +113,7 @@ namespace RythmGame.GamePlay.Track
             Score = 0;
             ElapsedTimeToStart = 0;
             TimeToStart = 1;
+            LevelCompleted = false;
             Running = true;
             ShowCountdown = true;
             GameEnded = false;
@@ -140,6 +147,16 @@ namespace RythmGame.GamePlay.Track
 
             SoundPlayer.StopSong();
             SoundPlayer.PlayEffect(SoundPlayer.SoundEffects.TrackFailed);
+        }
+
+        private void TrackFinished()
+        {
+            GameEnded = true;
+            Running = false;
+            LevelCompleted = true;
+
+            SoundPlayer.StopSong();
+            //SoundPlayer.PlayEffect(SoundPlayer.SoundEffects.TrackFailed);
         }
 
         public void Update(GameTime gameTime)

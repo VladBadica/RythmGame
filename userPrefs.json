@@ -1,7 +1,7 @@
 {
-  "EffectsVolume": 1,
+  "EffectsVolume": 1.0,
   "LeftActionKey": 90,
-  "MasterVolume": 0.05,
-  "MusicVolume": 1,
+  "MasterVolume": 0.50,
+  "MusicVolume": 0.8,
   "RightActionKey": 88
 }

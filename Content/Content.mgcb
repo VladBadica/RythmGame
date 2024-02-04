@@ -19,6 +19,42 @@
 /processorParam:Quality=Best
 /build:songs/gods.mp3
 
+#begin songs/mainMenuMusic.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:songs/mainMenuMusic.mp3
+
+#begin songs/mainMenuMusic2.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:songs/mainMenuMusic2.mp3
+
+#begin songs/riverFlowsInYou.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:songs/riverFlowsInYou.mp3
+
+#begin soundEffects/gameOver.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:soundEffects/gameOver.wav
+
+#begin soundEffects/hitSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:soundEffects/hitSound.wav
+
+#begin soundEffects/htiSound2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:soundEffects/htiSound2.wav;soundEffects/hitSound2.wav
+
 #begin soundEffects/rocketExplosionSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -73,6 +109,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:textures/retroBackground.png
+
+#begin textures/retroBackground2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:textures/retroBackground2.png
 
 #begin textures/stepLine.png
 /importer:TextureImporter

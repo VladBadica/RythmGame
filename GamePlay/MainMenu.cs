@@ -15,6 +15,8 @@ namespace RythmGame.GamePlay
         private Label playLabel;
         private Label exitLabel;
 
+        public event EventHandler PlayClicked;
+
         public MainMenu()
         {
             trackBall = new TrackBall(3);
@@ -38,6 +40,7 @@ namespace RythmGame.GamePlay
 
         public void Initialize()
         {
+            SoundPlayer.PlaySong("mainMenuMusic");
             trackBall.Reset();
         }
 
@@ -52,6 +55,8 @@ namespace RythmGame.GamePlay
                 && (trackBall.Rectangle.Center.X > playLabel.Position.X && trackBall.Rectangle.Center.X < playLabel.Position.X + playLabel.Size.X)) 
             {
                 Globals.GameState = Globals.GAME_STATE.SELECTION_SCREEN;
+                SoundPlayer.StopSong();
+                PlayClicked?.Invoke(this, null);
             }
             if (InputHandler.IsAnyKeyPressed(new[] { Keys.Space, UserPrefs.Settings.LeftActionKey, UserPrefs.Settings.RightActionKey })
                 && (trackBall.Rectangle.Center.X > exitLabel.Position.X && trackBall.Rectangle.Center.X < exitLabel.Position.X + exitLabel.Size.X))

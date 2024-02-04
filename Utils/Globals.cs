@@ -12,7 +12,7 @@ namespace RythmGame.Utils
         public static int WindowWidth = 1024;
         public static int WindowHeight = 600;
 
-        public static GAME_STATE GameState = 0;
+        public static GAME_STATE GameState;
 
     }
 }

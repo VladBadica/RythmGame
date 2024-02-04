@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using RythmGame.Utils;
 using Microsoft.Xna.Framework.Media;
+using System;
 
 namespace RythmGame.GamePlay.Track
 {
@@ -17,12 +18,13 @@ namespace RythmGame.GamePlay.Track
         public Song Song;
         public List<Rectangle> StepsTemplate;
         private List<Rectangle> steps;
+        public int StepsCount => steps.Count;
 
         public Map()
         {
             steps = new List<Rectangle>();
             StepTexture = AssetManager.GetTexture(StepTextureString);
-            BackgroundTexture = AssetManager.GetTexture("retroBackground");
+            BackgroundTexture = AssetManager.GetTexture("retroBackground2");
         }
 
         public Rectangle CurrentStep => steps[0];

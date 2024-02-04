@@ -15,6 +15,13 @@ namespace RythmGame.GamePlay
         public GameEngine()
         {
             mainMenu = new MainMenu();
+            Globals.GameState = Globals.GAME_STATE.MAIN_MENU;
+
+            mainMenu.Initialize();
+            mainMenu.PlayClicked += (object sender, EventArgs args) =>
+            {
+                selectionScreen.Initialize();
+            };
 
             selectionScreen = new SelectionScreen();
             selectionScreen.StartTrack += (object sender, EventArgs args) => {

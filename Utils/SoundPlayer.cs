@@ -28,9 +28,11 @@ namespace RythmGame.Utils
             soundEffects = new Dictionary<SoundEffects, SoundEffect>();
             songs = new Dictionary<string, Song>();
 
-            soundEffects.Add(SoundEffects.StepHit, AssetManager.GetSoundEffect("slimeSplash"));
-            soundEffects.Add(SoundEffects.TrackFailed, AssetManager.GetSoundEffect("rocketExplosionSound"));
+            soundEffects.Add(SoundEffects.StepHit, AssetManager.GetSoundEffect("hitSound2"));
+            soundEffects.Add(SoundEffects.TrackFailed, AssetManager.GetSoundEffect("gameOver"));
             songs.Add("gods", AssetManager.GetSong("gods"));
+            songs.Add("riverFlowsInYou", AssetManager.GetSong("riverFlowsInYou"));
+            songs.Add("mainMenuMusic", AssetManager.GetSong("mainMenuMusic"));
 
             masterVolume = UserPrefs.Settings.MasterVolume;
             musicVolume = UserPrefs.Settings.MusicVolume;
@@ -45,9 +47,9 @@ namespace RythmGame.Utils
             MediaPlayer.Pause();
         }
 
-        public static void PlayEffect(SoundEffects effectName)
+        public static void PlayEffect(SoundEffects effectName, float volumeModifier = 1f, float pitch = 0f, float pan = 1f)
         {
-            soundEffects[effectName].Play(masterVolume * effectsVolume, 0.0f, 0.0f);
+            soundEffects[effectName].Play(masterVolume * effectsVolume * volumeModifier, pitch, pan);
         }
 
         public static void PlaySong(string songName)

@@ -14,12 +14,12 @@ namespace RythmGame.GamePlay.Track
 
         public TrackEngineUI()
         {
-            ComboHitInfoLabels = new LabelListOverflow(new Vector2(Globals.WindowWidth / 2 - 30, Globals.WindowHeight / 2), 2000);
-            scoreLabel = new Label("Score: 0");
+            ComboHitInfoLabels = new LabelListOverflow(new Vector2(Globals.WindowWidth / 2 - 30, Globals.WindowHeight / 2), 2000) { LabelsColor = Color.Yellow };
+            scoreLabel = new Label("Score: 0") { LabelColor = Color.WhiteSmoke };
             scoreLabel.Position = new Vector2(0, 0);
-            accuracyLabel = new Label("Acc: 0%");
+            accuracyLabel = new Label("Acc: 0%") { LabelColor = Color.WhiteSmoke };
             accuracyLabel.Position = new Vector2(0, 30);
-            timerLabel = new Label("0");
+            timerLabel = new Label("0") { LabelColor = Color.WhiteSmoke };
             timerLabel.Position = new Vector2(Globals.WindowWidth / 2 - timerLabel.Size.X / 2, Globals.WindowHeight / 2 - timerLabel.Size.Y / 2 - 50);
 
         }

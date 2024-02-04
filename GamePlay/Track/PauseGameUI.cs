@@ -2,11 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using RythmGame.UiComponents;
 using RythmGame.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RythmGame.GamePlay.Track
 {
@@ -16,7 +11,7 @@ namespace RythmGame.GamePlay.Track
 
         public PauseGameUI()
         {
-            pauseLabel = new Label("Game Paused");
+            pauseLabel = new Label("Game Paused") { LabelColor = Color.WhiteSmoke };
             pauseLabel.Position = new Vector2(Globals.WindowWidth / 2 - pauseLabel.Size.X / 2, 150);
         }
 

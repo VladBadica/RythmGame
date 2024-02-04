@@ -38,7 +38,7 @@ namespace RythmGame.GamePlay
             Maps = GetAllMaps();
             mapSelectionTexture = AssetManager.GetTexture("mapSelectionRectangle");
             mapSelectionRectangle = new Rectangle(Globals.WindowWidth / 2 - mapSelectionTexture.Width / 2, Globals.WindowHeight / 2 - mapSelectionTexture.Height / 2, mapSelectionTexture.Width, mapSelectionTexture.Height);
-            mapName = new Label("Map Name: " + Maps[CurrentIndex].MapName);
+            mapName = new Label("Map: " + Maps[CurrentIndex].MapName);
             mapName.Position = new Vector2(mapSelectionRectangle.X + mapSelectionRectangle.Width / 2 - mapName.Size.X / 2, mapSelectionRectangle.Y + 10);
             mapDuration = new Label("Duration: " + Maps[CurrentIndex].Song.Duration.ToString(@"mm\:ss"));
             mapDuration.Position = new Vector2(mapSelectionRectangle.X + mapSelectionRectangle.Width / 2 - mapDuration.Size.X / 2, mapName.Position.Y + mapName.Size.Y);
@@ -74,7 +74,7 @@ namespace RythmGame.GamePlay
             spriteBatch.Draw(mapSelectionTextureLeft, mapSelectionRectangleLeft, Color.White);
             spriteBatch.Draw(mapSelectionTextureRight, mapSelectionRectangleRight, Color.White);
 
-            mapName.Text = "Map Name: " + Maps[CurrentIndex].MapName;
+            mapName.Text = "Map: " + Maps[CurrentIndex].MapName;
             mapName.Position = new Vector2(mapSelectionRectangle.X + mapSelectionRectangle.Width / 2 - mapName.Size.X / 2, mapSelectionRectangle.Y + 10);
             mapDuration.Text = "Duration: " + Maps[CurrentIndex].Song.Duration.ToString(@"mm\:ss");
             mapDuration.Position = new Vector2(mapSelectionRectangle.X + mapSelectionRectangle.Width / 2 - mapDuration.Size.X / 2, mapName.Position.Y + mapName.Size.Y);
@@ -89,6 +89,7 @@ namespace RythmGame.GamePlay
         public void Initialize()
         {
             CurrentIndex = 0;
+            SoundPlayer.PlaySong(Maps[CurrentIndex].SongFile);
         }
 
         public void Update(GameTime gameTime)
@@ -97,6 +98,7 @@ namespace RythmGame.GamePlay
             {
                 GoBack?.Invoke(this, null);
                 Globals.GameState = Globals.GAME_STATE.MAIN_MENU;
+                SoundPlayer.StopSong();
                 return;
             }
 
@@ -104,6 +106,7 @@ namespace RythmGame.GamePlay
             {
                 StartTrack?.Invoke(this, null);
                 Globals.GameState = Globals.GAME_STATE.PLAYING;
+                SoundPlayer.StopSong();
             }
 
             if (InputHandler.IsKeyPressed(Keys.Z) || InputHandler.IsKeyPressed(Keys.Left) || InputHandler.IsKeyPressed(Keys.A))
@@ -111,6 +114,7 @@ namespace RythmGame.GamePlay
                 if (CurrentIndex != 0)
                 {
                     CurrentIndex--;
+                    SoundPlayer.PlaySong(Maps[CurrentIndex].SongFile);
                 }
             }
 
@@ -119,6 +123,7 @@ namespace RythmGame.GamePlay
                 if (CurrentIndex != Maps.Count - 1)
                 {
                     CurrentIndex++;
+                    SoundPlayer.PlaySong(Maps[CurrentIndex].SongFile);
                 }
             }
         }

@@ -11,6 +11,7 @@ namespace RythmGame.UiComponents
         private List<Label> markedForRemoval;
         private Vector2 position;
         private double visibilityTime;
+        public Color LabelsColor = Color.Black;
 
         public LabelListOverflow(Vector2 position, double visibilityTime = 2000)
         {
@@ -22,7 +23,7 @@ namespace RythmGame.UiComponents
 
         public void AddLabel(string text)
         {
-            Label l1 = new Label(text, position, visibilityTime);
+            Label l1 = new Label(text, position, visibilityTime) { LabelColor = LabelsColor };
             l1.TimedLabelHidden += RemoveLabel;
 
             labels.ForEach(label => {

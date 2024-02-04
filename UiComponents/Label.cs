@@ -17,16 +17,16 @@ namespace RythmGame.UiComponents
         private double visibilityTime;
         private double elapsedTime;
 
-        private Color color = Color.Black;
+        public Color LabelColor = Color.Black;
         public byte Alpha
         {
             get
             {
-                return color.A;
+                return LabelColor.A;
             }
             set
             {
-                color.A = value;
+                LabelColor.A = value;
             }
         }
         public SpriteFont Font;
@@ -60,7 +60,7 @@ namespace RythmGame.UiComponents
                 return;
             }
 
-            spriteBatch.DrawString(Font, Text, Position, color, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
+            spriteBatch.DrawString(Font, Text, Position, LabelColor, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
         }
 
         public void Show(double timeVisible)
