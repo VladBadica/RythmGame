@@ -65,29 +65,29 @@ namespace RythmGame.GamePlay.Track
             };
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw()
         {
             if (!GameEnded)
             {
-                Map.Draw(spriteBatch);
-                TrackBall.Draw(spriteBatch);
-                UI.Draw(this, spriteBatch);
+                Map.Draw();
+                TrackBall.Draw();
+                UI.Draw(this);
                 if (GamePaused)
                 {
-                    PauseGameUI.Draw(spriteBatch);
+                    PauseGameUI.Draw();
                 }
             }
             else
             {
-                EndGameUI.Draw(this, spriteBatch);
+                EndGameUI.Draw(this);
             }
         }
 
-        private void UpdateCountDown(GameTime gameTime)
+        private void UpdateCountDown()
         {
             if (TimeToStart > 0)
             {
-                ElapsedTimeToStart += gameTime.ElapsedGameTime.TotalMilliseconds;
+                ElapsedTimeToStart += Globals.GameTime.ElapsedGameTime.TotalMilliseconds;
                 if (ElapsedTimeToStart > 1000)
                 {
                     TimeToStart -= 1;
@@ -159,9 +159,9 @@ namespace RythmGame.GamePlay.Track
             //SoundPlayer.PlayEffect(SoundPlayer.SoundEffects.TrackFailed);
         }
 
-        public void Update(GameTime gameTime)
+        public void Update()
         {
-            UI.Update(this, gameTime);
+            UI.Update(this);
 
             if (InputHandler.IsKeyPressed(Keys.Escape))
             {
@@ -189,11 +189,11 @@ namespace RythmGame.GamePlay.Track
             {                
                 if (ShowCountdown)
                 {
-                    UpdateCountDown(gameTime);
+                    UpdateCountDown();
                 }
                 else
                 {
-                    TrackBall.Update(this, gameTime);
+                    TrackBall.Update(this);
                 }               
             }
         }

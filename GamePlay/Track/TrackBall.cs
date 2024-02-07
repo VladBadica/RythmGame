@@ -59,9 +59,9 @@ namespace RythmGame.GamePlay.Track
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw()
         {
-            spriteBatch.Draw(texture, Rectangle, Color.White);
+            Globals.SpriteBatch.Draw(texture, Rectangle, Color.White);
         }
 
         public void GetNewChangeDirectionAt(Rectangle currentStep)
@@ -88,7 +88,7 @@ namespace RythmGame.GamePlay.Track
             running = false;
         }
 
-        public void Update(TrackEngine trackEngine, GameTime gameTime)
+        public void Update(TrackEngine trackEngine)
         {
             if (!running)
             {

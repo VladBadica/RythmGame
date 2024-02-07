@@ -1,87 +1,92 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework.Graphics;
+using RythmGame.GamePlay;
 using RythmGame.GamePlay.Track;
+using RythmGame.MapEditor;
 using RythmGame.Utils;
-using System;
 
-namespace RythmGame.GamePlay
+namespace RythmGame
 {
     public class GameEngine
     {
         private TrackEngine trackEngine;
         public MainMenu mainMenu;
         public SelectionScreen selectionScreen;
+        public MapEditorScreen mapEditor;
 
         public GameEngine()
         {
+            mapEditor = new MapEditorScreen();
             mainMenu = new MainMenu();
             Globals.GameState = Globals.GAME_STATE.MAIN_MENU;
 
             mainMenu.Initialize();
-            mainMenu.PlayClicked += (object sender, EventArgs args) =>
+            mainMenu.PlayClicked += (sender, args) =>
             {
                 selectionScreen.Initialize();
             };
 
             selectionScreen = new SelectionScreen();
-            selectionScreen.StartTrack += (object sender, EventArgs args) => {
+            selectionScreen.StartTrack += (sender, args) =>
+            {
                 SelectionScreen selected = (SelectionScreen)sender;
                 trackEngine.Map = selected.Maps[selected.CurrentIndex];
                 trackEngine.InitGame();
             };
-            selectionScreen.GoBack += (object sender, EventArgs args) => {
+            selectionScreen.GoBack += (sender, args) =>
+            {
                 mainMenu.Initialize();
             };
 
             trackEngine = new TrackEngine();
-            trackEngine.GoBack += (object sender, EventArgs args) => {
+            trackEngine.GoBack += (sender, args) =>
+            {
                 selectionScreen.Initialize();
             };
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw()
         {
             switch (Globals.GameState)
             {
                 case Globals.GAME_STATE.MAIN_MENU:
                     {
-                        mainMenu.Draw(spriteBatch);
+                        mainMenu.Draw();
                         break;
                     }
                 case Globals.GAME_STATE.SELECTION_SCREEN:
                     {
-                        selectionScreen.Draw(spriteBatch);
+                        selectionScreen.Draw();
                         break;
                     }
                 case Globals.GAME_STATE.PLAYING:
                     {
-                        trackEngine.Draw(spriteBatch);
+                        trackEngine.Draw();
                         break;
                     }
-                default: break;                   
+                default: break;
             }
         }
 
-        public void Update(GameTime gameTime)
+        public void Update()
         {
-            switch (Globals.GameState) 
+            switch (Globals.GameState)
             {
                 case Globals.GAME_STATE.MAIN_MENU:
                     {
-                        mainMenu.Update(gameTime);
+                        mainMenu.Update();
                         break;
                     }
                 case Globals.GAME_STATE.SELECTION_SCREEN:
                     {
-                        selectionScreen.Update(gameTime);
+                        selectionScreen.Update();
                         break;
                     }
                 case Globals.GAME_STATE.PLAYING:
                     {
-                        trackEngine.Update(gameTime);
+                        trackEngine.Update();
                         break;
                     }
-                default: break;                    
+                default: break;
             }
         }
     }

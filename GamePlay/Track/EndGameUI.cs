@@ -32,7 +32,7 @@ namespace RythmGame.GamePlay.Track
 
         }
 
-        public void Draw(TrackEngine trackEngine, SpriteBatch spriteBatch)
+        public void Draw(TrackEngine trackEngine)
         {
             scoreLabel.Text = $"Your Score: {trackEngine.Score}";
             scoreLabel.Position = new Vector2(Globals.WindowWidth / 2 - (int)scoreLabel.Size.X / 2, 170);
@@ -42,18 +42,18 @@ namespace RythmGame.GamePlay.Track
 
             if (trackEngine.LevelCompleted)
             {
-                trackCompleteLabel.Draw(spriteBatch);
+                trackCompleteLabel.Draw();
             }
             else
             {
-                trackFailedLabel.Draw(spriteBatch);
+                trackFailedLabel.Draw();
             }
-            scoreLabel.Draw(spriteBatch);
-            accuracyLabel.Draw(spriteBatch);
-            infolabel.Draw(spriteBatch);
+            scoreLabel.Draw();
+            accuracyLabel.Draw();
+            infolabel.Draw();
         }
 
-        public void Update(GameTime gameTime)
+        public void Update()
         {
 
         }

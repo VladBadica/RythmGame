@@ -53,14 +53,14 @@ namespace RythmGame.UiComponents
             Scale = 1f;
         }
 
-        public virtual void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw()
         {
             if (!Visible)
             {
                 return;
             }
 
-            spriteBatch.DrawString(Font, Text, Position, LabelColor, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
+            Globals.SpriteBatch.DrawString(Font, Text, Position, LabelColor, 0.0f, Vector2.Zero, 1f, SpriteEffects.None, 0);
         }
 
         public void Show(double timeVisible)
@@ -70,7 +70,7 @@ namespace RythmGame.UiComponents
             elapsedTime = 0;
         }
 
-        public virtual void Update(GameTime gameTime)
+        public virtual void Update()
         {
             if (!Visible)
             {
@@ -84,7 +84,7 @@ namespace RythmGame.UiComponents
                 elapsedTime = 0;
             }
 
-            elapsedTime += gameTime.ElapsedGameTime.TotalMilliseconds;
+            elapsedTime += Globals.GameTime.ElapsedGameTime.TotalMilliseconds;
         }
 
     }

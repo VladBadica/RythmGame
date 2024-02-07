@@ -24,20 +24,20 @@ namespace RythmGame.GamePlay.Track
 
         }
 
-        public void Draw(TrackEngine trackEngine, SpriteBatch spriteBatch)
+        public void Draw(TrackEngine trackEngine)
         {
 
             scoreLabel.Text = "Score: " + trackEngine.Score.ToString();
             accuracyLabel.Text = "Acc: " + trackEngine.PerformanceTracker.Accuracy + "%";
             
-            scoreLabel.Draw(spriteBatch);
-            accuracyLabel.Draw(spriteBatch);
-            ComboHitInfoLabels.Draw(spriteBatch);
+            scoreLabel.Draw();
+            accuracyLabel.Draw();
+            ComboHitInfoLabels.Draw();
 
             if (trackEngine.ShowCountdown)
             {
                 timerLabel.Text = trackEngine.TimeToStart.ToString();
-                timerLabel.Draw(spriteBatch);
+                timerLabel.Draw();
             }
         }
 
@@ -46,9 +46,9 @@ namespace RythmGame.GamePlay.Track
             ComboHitInfoLabels.Reset();
         }
 
-        public void Update(TrackEngine trackEngine, GameTime gameTime)
+        public void Update(TrackEngine trackEngine)
         {
-            ComboHitInfoLabels.Update(gameTime);
+            ComboHitInfoLabels.Update();
         }
 
     }

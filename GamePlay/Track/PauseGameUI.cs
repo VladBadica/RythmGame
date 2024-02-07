@@ -15,9 +15,9 @@ namespace RythmGame.GamePlay.Track
             pauseLabel.Position = new Vector2(Globals.WindowWidth / 2 - pauseLabel.Size.X / 2, 150);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw()
         {
-            pauseLabel.Draw(spriteBatch);
+            pauseLabel.Draw();
         }
 
     }

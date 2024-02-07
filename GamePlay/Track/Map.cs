@@ -29,10 +29,10 @@ namespace RythmGame.GamePlay.Track
 
         public Rectangle CurrentStep => steps[0];
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw()
         {
-            spriteBatch.Draw(BackgroundTexture, new Rectangle(0, 0, Globals.WindowWidth, Globals.WindowHeight), Color.White);
-            steps.ForEach(step => spriteBatch.Draw(StepTexture, step, Color.White));
+            Globals.SpriteBatch.Draw(BackgroundTexture, new Rectangle(0, 0, Globals.WindowWidth, Globals.WindowHeight), Color.White);
+            steps.ForEach(step => Globals.SpriteBatch.Draw(StepTexture, step, Color.White));
         }
 
         public void Reset()

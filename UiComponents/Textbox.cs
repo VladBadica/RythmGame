@@ -61,7 +61,7 @@ namespace RythmGame.UiComponents
             Text = text;
         }
 
-        public override void Update(GameTime gameTime)
+        public override void Update()
         {
             UpdateKeyboardInput();
 
@@ -75,7 +75,7 @@ namespace RythmGame.UiComponents
                     IsFocused = false;
             }
 
-            base.Update(gameTime);
+            base.Update();
         }
 
         private void UpdateKeyboardInput()
@@ -103,11 +103,11 @@ namespace RythmGame.UiComponents
             return key >= Keys.A && key <= Keys.Z;
         }
 
-        public override void Draw(SpriteBatch spriteBatch)
+        public override void Draw()
         {
-            spriteBatch.Draw(texture, rectangle, color);
+            Globals.SpriteBatch.Draw(texture, rectangle, color);
 
-            base.Draw(spriteBatch);
+            base.Draw();
         }
 
     }

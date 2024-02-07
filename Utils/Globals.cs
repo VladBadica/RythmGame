@@ -1,4 +1,7 @@
 ﻿
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
 namespace RythmGame.Utils
 {
     public static class Globals
@@ -13,6 +16,9 @@ namespace RythmGame.Utils
         public static int WindowHeight = 600;
 
         public static GAME_STATE GameState;
+
+        public static SpriteBatch SpriteBatch;
+        public static GameTime GameTime;
 
     }
 }

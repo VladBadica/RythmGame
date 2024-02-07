@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using RythmGame.GamePlay;
 using RythmGame.Utils;
 
 namespace RythmGame
@@ -16,7 +15,6 @@ namespace RythmGame
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            
         }
 
         protected override void Draw(GameTime gameTime)
@@ -24,7 +22,7 @@ namespace RythmGame
             GraphicsDevice.Clear(Color.HotPink);
 
             spriteBatch.Begin(SpriteSortMode.Deferred, null, SamplerState.LinearWrap);
-            gameEngine.Draw(spriteBatch);
+            gameEngine.Draw();
 
             spriteBatch.End();
 
@@ -46,6 +44,7 @@ namespace RythmGame
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+            Globals.SpriteBatch = spriteBatch;
             SoundPlayer.LoadContent();
 
             gameEngine = new GameEngine();
@@ -53,8 +52,10 @@ namespace RythmGame
 
         protected override void Update(GameTime gameTime)
         {
+            Globals.GameTime = gameTime;
+
             InputHandler.Update();
-            gameEngine.Update(gameTime);
+            gameEngine.Update();
 
             base.Update(gameTime);
         }

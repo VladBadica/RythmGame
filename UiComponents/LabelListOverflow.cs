@@ -33,9 +33,9 @@ namespace RythmGame.UiComponents
             labels.Add(l1);
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw()
         {
-            labels.ForEach(label => label.Draw(spriteBatch));
+            labels.ForEach(label => label.Draw());
         }
 
         public void Reset()
@@ -49,7 +49,7 @@ namespace RythmGame.UiComponents
             markedForRemoval.Add((Label)sender);
         }
 
-        public void Update(GameTime gameTime)
+        public void Update()
         {
             if(markedForRemoval.Count > 0)
             {
@@ -57,7 +57,7 @@ namespace RythmGame.UiComponents
                 markedForRemoval.Clear();
             }
 
-            labels.ForEach(label => label.Update(gameTime));
+            labels.ForEach(label => label.Update());
 
         }
     }

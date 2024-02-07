@@ -30,12 +30,12 @@ namespace RythmGame.GamePlay
             background = AssetManager.GetTexture("mainMenu");
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw()
         {
-            spriteBatch.Draw(background, new Rectangle(0, 0, background.Width, background.Height), Color.White);
-            playLabel.Draw(spriteBatch);
-            exitLabel.Draw(spriteBatch);
-            trackBall.Draw(spriteBatch);
+            Globals.SpriteBatch.Draw(background, new Rectangle(0, 0, background.Width, background.Height), Color.White);
+            playLabel.Draw();
+            exitLabel.Draw();
+            trackBall.Draw();
         }
 
         public void Initialize()
@@ -44,7 +44,7 @@ namespace RythmGame.GamePlay
             trackBall.Reset();
         }
 
-        public void Update(GameTime gameTime)
+        public void Update()
         {
             if (InputHandler.IsKeyPressed(Keys.Escape))
             {

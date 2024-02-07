@@ -68,11 +68,11 @@ namespace RythmGame.GamePlay
             return maps;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public void Draw()
         {
-            spriteBatch.Draw(mapSelectionTexture, mapSelectionRectangle, Color.White);
-            spriteBatch.Draw(mapSelectionTextureLeft, mapSelectionRectangleLeft, Color.White);
-            spriteBatch.Draw(mapSelectionTextureRight, mapSelectionRectangleRight, Color.White);
+            Globals.SpriteBatch.Draw(mapSelectionTexture, mapSelectionRectangle, Color.White);
+            Globals.SpriteBatch.Draw(mapSelectionTextureLeft, mapSelectionRectangleLeft, Color.White);
+            Globals.SpriteBatch.Draw(mapSelectionTextureRight, mapSelectionRectangleRight, Color.White);
 
             mapName.Text = "Map: " + Maps[CurrentIndex].MapName;
             mapName.Position = new Vector2(mapSelectionRectangle.X + mapSelectionRectangle.Width / 2 - (int)mapName.Size.X / 2, mapSelectionRectangle.Y + 10);
@@ -81,9 +81,9 @@ namespace RythmGame.GamePlay
             mapAuthor.Text = "Made By: " + Maps[CurrentIndex].Author;
             mapAuthor.Position = new Vector2(mapSelectionRectangle.X + mapSelectionRectangle.Width / 2 - (int)mapAuthor.Size.X / 2, mapDuration.Position.Y + mapDuration.Size.Y);
 
-            mapName.Draw(spriteBatch);
-            mapDuration.Draw(spriteBatch);
-            mapAuthor.Draw(spriteBatch);
+            mapName.Draw();
+            mapDuration.Draw();
+            mapAuthor.Draw();
         }
 
         public void Initialize()
@@ -92,7 +92,7 @@ namespace RythmGame.GamePlay
             SoundPlayer.PlaySong(Maps[CurrentIndex].SongFile);
         }
 
-        public void Update(GameTime gameTime)
+        public void Update()
         {
             if (InputHandler.IsKeyPressed(Keys.Escape))
             {
