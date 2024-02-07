@@ -14,18 +14,22 @@ namespace RythmGame.GamePlay
         private TrackBall trackBall;
         private Label playLabel;
         private Label exitLabel;
+        private Label mapEditor;
 
         public event EventHandler PlayClicked;
+        public event EventHandler MapEditorClicked;
 
         public MainMenu()
         {
             trackBall = new TrackBall(3);
             trackBall.Start();
 
+            mapEditor = new Label("Editor");
+            mapEditor.Position = new Vector2(Globals.WindowWidth / 2 - 90, trackBall.Rectangle.Y - 20);
             playLabel = new Label("Play");
-            playLabel.Position = new Vector2(Globals.WindowWidth / 2 - 60, trackBall.Rectangle.Y - 20);
+            playLabel.Position = new Vector2(Globals.WindowWidth / 2, trackBall.Rectangle.Y - 20);
             exitLabel = new Label("Exit");
-            exitLabel.Position = new Vector2(Globals.WindowWidth / 2 + 60, trackBall.Rectangle.Y - 20);
+            exitLabel.Position = new Vector2(Globals.WindowWidth / 2 + 85, trackBall.Rectangle.Y - 20);
 
             background = AssetManager.GetTexture("mainMenu");
         }
@@ -33,6 +37,7 @@ namespace RythmGame.GamePlay
         public void Draw()
         {
             Globals.SpriteBatch.Draw(background, new Rectangle(0, 0, background.Width, background.Height), Color.White);
+            mapEditor.Draw();
             playLabel.Draw();
             exitLabel.Draw();
             trackBall.Draw();
@@ -52,7 +57,14 @@ namespace RythmGame.GamePlay
             }
 
             if (InputHandler.IsAnyKeyPressed(new[] { Keys.Space, UserPrefs.Settings.LeftActionKey, UserPrefs.Settings.RightActionKey })
-                && (trackBall.Rectangle.Center.X > playLabel.Position.X && trackBall.Rectangle.Center.X < playLabel.Position.X + playLabel.Size.X)) 
+                && (trackBall.Rectangle.Center.X > mapEditor.Position.X && trackBall.Rectangle.Center.X < mapEditor.Position.X + mapEditor.Size.X)) 
+            {
+                Globals.GameState = Globals.GAME_STATE.MAP_EDITOR;
+                SoundPlayer.StopSong();
+                MapEditorClicked?.Invoke(this, null);
+            }
+            if (InputHandler.IsAnyKeyPressed(new[] { Keys.Space, UserPrefs.Settings.LeftActionKey, UserPrefs.Settings.RightActionKey })
+                && (trackBall.Rectangle.Center.X > playLabel.Position.X && trackBall.Rectangle.Center.X < playLabel.Position.X + playLabel.Size.X))
             {
                 Globals.GameState = Globals.GAME_STATE.SELECTION_SCREEN;
                 SoundPlayer.StopSong();
@@ -66,7 +78,7 @@ namespace RythmGame.GamePlay
 
             trackBall.Move();
 
-            if (trackBall.Rectangle.Center.X < playLabel.Position.X + playLabel.Size.X / 2)
+            if (trackBall.Rectangle.Center.X < mapEditor.Position.X + mapEditor.Size.X / 2)
             {
                 trackBall.ChangeDirection();
             }

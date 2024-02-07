@@ -45,6 +45,8 @@ namespace RythmGame
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Globals.SpriteBatch = spriteBatch;
+            Globals.GraphicsDevice = GraphicsDevice;
+
             SoundPlayer.LoadContent();
 
             gameEngine = new GameEngine();

@@ -24,6 +24,10 @@ namespace RythmGame
             {
                 selectionScreen.Initialize();
             };
+            mainMenu.MapEditorClicked += (sender, args) =>
+            {
+                mapEditor.Initialize();
+            };
 
             selectionScreen = new SelectionScreen();
             selectionScreen.StartTrack += (sender, args) =>
@@ -53,6 +57,11 @@ namespace RythmGame
                         mainMenu.Draw();
                         break;
                     }
+                case Globals.GAME_STATE.MAP_EDITOR:
+                    {
+                        mapEditor.Draw();
+                        break;
+                    }
                 case Globals.GAME_STATE.SELECTION_SCREEN:
                     {
                         selectionScreen.Draw();
@@ -74,6 +83,11 @@ namespace RythmGame
                 case Globals.GAME_STATE.MAIN_MENU:
                     {
                         mainMenu.Update();
+                        break;
+                    }
+                case Globals.GAME_STATE.MAP_EDITOR:
+                    {
+                        mapEditor.Update();
                         break;
                     }
                 case Globals.GAME_STATE.SELECTION_SCREEN:

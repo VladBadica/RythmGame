@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using RythmGame.GamePlay.Track;
 using RythmGame.Utils;
 using System;
 
-namespace RythmGame.GamePlay.Track
+namespace RythmGame.MapEditor
 {
     public class TrackBall
     {
@@ -29,9 +30,6 @@ namespace RythmGame.GamePlay.Track
             }
         }
 
-        public event EventHandler<int> OnCorrectHit;
-        public event EventHandler OnMiss;
-        public event EventHandler OnOutOfBounds;
         public int ChangeDirectionAt;
         public bool CurrentStepHit;
 
@@ -88,7 +86,7 @@ namespace RythmGame.GamePlay.Track
             running = false;
         }
 
-        public void Update(TrackEngine trackEngine)
+        public void Update(Map map)
         {
             if (!running)
             {
@@ -97,49 +95,20 @@ namespace RythmGame.GamePlay.Track
 
             position.X += (int)direction * speed;
 
-            if (InputHandler.IsKeyPressed(UserPrefs.Settings.LeftActionKey) || InputHandler.IsKeyPressed(UserPrefs.Settings.RightActionKey))
-            {
-                if (Rectangle.Intersects(trackEngine.Map.CurrentStep))
-                {
-                    OnCorrectHit?.Invoke(this, trackEngine.Map.CurrentStep.Center.X);
-                    CurrentStepHit = true;
-                }
-                else
-                {
-                    OnMiss?.Invoke(this, null);
-                }
-            }
-
             if(direction == DirectionEnum.left)
             {
                 if (Rectangle.X + Rectangle.Width < ChangeDirectionAt)
                 {
-                    if (CurrentStepHit)
-                    {
-                        ChangeDirection();
-                        GetNewChangeDirectionAt(trackEngine.Map.CurrentStep);
-                        CurrentStepHit = false;
-                    }
-                    else
-                    {
-                        OnOutOfBounds?.Invoke(this, null);
-                    }
+                    ChangeDirection();
+                    GetNewChangeDirectionAt(map.CurrentStep);
                 }
             }
             else if (direction == DirectionEnum.right)
             {
                 if (position.X > ChangeDirectionAt)
                 {
-                    if (CurrentStepHit)
-                    {
-                        ChangeDirection();
-                        GetNewChangeDirectionAt(trackEngine.Map.CurrentStep);
-                        CurrentStepHit = false;
-                    }
-                    else
-                    {
-                        OnOutOfBounds?.Invoke(this, null);
-                    }
+                    ChangeDirection();
+                    GetNewChangeDirectionAt(map.CurrentStep);
                 }
             }
         }
