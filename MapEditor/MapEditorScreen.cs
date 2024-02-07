@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using System;
 
 namespace RythmGame.MapEditor
 {
@@ -12,7 +13,7 @@ namespace RythmGame.MapEditor
         private Map map;
         private int gridSnap;
         private bool tryRun;
-        private Rectangle[] grid;
+        private int MouseSnapPosX;
 
         public MapEditorScreen()
         {
@@ -39,13 +40,42 @@ namespace RythmGame.MapEditor
                 Globals.SpriteBatch.Draw(lineTexture, new Rectangle(0, i, Globals.WindowWidth, 1), Color.Black);
             }
 
-            Globals.SpriteBatch.Draw(lineTexture, new Rectangle(InputHandler.CurrentMouseState.X, map.NextStepPosY + Globals.StepHeight * map.StepIndex, 3, 48), Color.DarkOrange);
             map.Draw();
             trackBall.Draw();
+            Globals.SpriteBatch.Draw(lineTexture, new Rectangle(MouseSnapPosX, map.NextStepPosY + Globals.StepHeight * map.StepIndex, 3, 48), map.AllowNextStepPosX(MouseSnapPosX) ? Color.DarkOrange: Color.Red);
+        }
+
+        private int SnapMouseToGrid()
+        {
+            if(InputHandler.CurrentMouseState.X >= Globals.TrackBallStartX + Globals.TrackBallWidth / 2)
+            {
+                for (int i = Globals.TrackBallStartX + Globals.TrackBallWidth / 2; i < Globals.WindowWidth; i += gridSnap)
+                {
+                    if (Math.Abs(InputHandler.CurrentMouseState.X - i) <= gridSnap / 2)
+                    {
+                        return i;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = Globals.TrackBallStartX + Globals.TrackBallWidth / 2; i > 0; i -= gridSnap)
+                {
+                    if (Math.Abs(InputHandler.CurrentMouseState.X - i) <= gridSnap / 2)
+                    {
+                        return i;
+                    }
+                }
+            }
+
+            return InputHandler.CurrentMouseState.X;
+            
         }
 
         public void Initialize()
         {
+            tryRun = false;
+            gridSnap = 48;
         }
 
         public void Update()
@@ -78,10 +108,13 @@ namespace RythmGame.MapEditor
             {
                 map.PreviousStep();
             }
-
+            MouseSnapPosX = SnapMouseToGrid();
             if (InputHandler.LeftClick())
             {
-                map.AddStep(InputHandler.CurrentMouseState.X);
+                if(MouseSnapPosX > 0 && MouseSnapPosX < Globals.WindowWidth && InputHandler.CurrentMouseState.Y > 0 && InputHandler.CurrentMouseState.Y < Globals.WindowHeight)
+                {
+                    map.AddStep(MouseSnapPosX);
+                }
             }
         }
     }

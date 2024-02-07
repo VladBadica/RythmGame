@@ -29,9 +29,29 @@ namespace RythmGame.MapEditor
         public Rectangle CurrentStep => steps[0];
         public int NextStepPosY => steps.Count == 0 ? Globals.TrackBallStartY : steps[^1].Y - Globals.StepHeight;
 
+        public bool AllowNextStepPosX(int stepX)
+        {
+            if (steps.Count == 0 && stepX < Globals.TrackBallStartX)
+            {
+                return true;
+            }
+            else if (steps.Count != 0 && steps.Count % 2 == 0 && stepX < steps[^1].X)
+            {
+                return true;
+            }
+            else if (steps.Count % 2 == 1 && stepX > steps[^1].X)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public void AddStep(int stepX)
         {
-            steps.Add(new Rectangle(stepX, NextStepPosY, Globals.StepWidth, Globals.StepHeight));
+            if(AllowNextStepPosX(stepX))
+            {
+                steps.Add(new Rectangle(stepX, NextStepPosY, Globals.StepWidth, Globals.StepHeight));
+            }         
         }
 
         public void Draw()
