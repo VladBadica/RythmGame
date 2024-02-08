@@ -1,8 +1,10 @@
 ﻿using RythmGame.Utils;
-using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using System;
+using System.Windows.Forms;
+using System.IO;
+using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 namespace RythmGame.MapEditor
 {
@@ -22,6 +24,31 @@ namespace RythmGame.MapEditor
             map = new Map();
             tryRun = false;
             gridSnap = 48;
+
+            var fileContent = string.Empty;
+            var filePath = string.Empty;
+
+            using (var openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
+                openFileDialog.FilterIndex = 2;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    //Get the path of specified file
+                    filePath = openFileDialog.FileName;
+
+                    //Read the contents of the file into a stream
+                    var fileStream = openFileDialog.OpenFile();
+
+                    using (StreamReader reader = new StreamReader(fileStream))
+                    {
+                        fileContent = reader.ReadToEnd();
+                    }
+                }
+            }
         }
 
         public void Draw()
