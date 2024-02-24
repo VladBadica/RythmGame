@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using RythmGame.Utils;
 using Microsoft.Xna.Framework.Media;
-using System;
 
 namespace RythmGame.MapEditor
 {
